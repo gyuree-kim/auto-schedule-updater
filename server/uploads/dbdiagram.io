@@ -1,7 +1,3 @@
-//// -- LEVEL 1
-//// -- Tables and References
-
-// Creating tables
 Table user as U {
   id int [pk, increment] // auto-increment
   email String [unique]
@@ -11,6 +7,7 @@ Table user as U {
 
 Table message {
   id int [pk]
+  chatRoomId int [ref: - chatRoom.id]
   sender Sring
   content String
   sentAt String
@@ -18,13 +15,14 @@ Table message {
  
  Table chatRoom{
   id int [pk]
-  users array [ref: < U.id]
+  usersId array [ref: < U.id]
   lastUpdated timestamp
   messageList array [ref: < message.id]
  }
 
 Table appointment{
   id int [pk]
+  chatId int [ref: - chatRoom.id]
   date String
   time String
   location String
@@ -32,10 +30,5 @@ Table appointment{
 
 Table appointmentList{
   id int [pk]
-  chatId int [ref: < chatRoom.id]
-  appointmentList array [ref: < appointment.id]
-}
-// Creating references
-// You can also define relaionship separately
-// > many-to-one; < one-to-many; - one-to-one
-//----------------------------------------------//
+  userId int [ref: - U.id]
+  appointment
