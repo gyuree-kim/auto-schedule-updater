@@ -47,7 +47,7 @@ router.post('/register', (req, res)=>{
         if(err)
         {
           console.error(err);
-          return res.status(404).json({msg:'chatRooms.save 실패'});
+          return res.status(400).json({msg:'chatRooms.save 실패'});
         }
         else
         {
@@ -55,12 +55,12 @@ router.post('/register', (req, res)=>{
             if(err)
             {
               console.error(err);
-              return res.status(404).json({msg:'appointments.save 실패'});
+              return res.status(400).json({msg:'appointments.save 실패'});
             }
             else
             {
               console.log('New user is saved.');
-              return res.status(200).json({msg:'New user is saved.'});
+              return res.status(201).json({msg:'New user is saved.'});
             }
           })
         }
@@ -73,7 +73,8 @@ router.post('/register', (req, res)=>{
 router.get('/user/getAll', (req, res) => {
   const filter = {}; //find all users
   User.find(filter, (err, userList)=>{
-    if(err) res.status(404).json({msg: `users not found`});
+    if(err) res.status(400).json({msg: `getAll users error`});
+    if(!userList) res.status(404).json({msg: `users not found`});
     else
     {
       console.log('find userList 성공');
@@ -85,7 +86,7 @@ router.get('/user/getAll', (req, res) => {
 // search user by id
 router.get('/user/get/:id', (req, res) => {
   User.findOne({id: req.params.id}, (err, user) => {
-    if(err) res.status(500).json({error: `user findOne error`});
+    if(err) res.status(400).json({error: `user findOne error`});
     if(!user) res.status(404).json({msg: `user not found`});
     else
     {
@@ -98,7 +99,7 @@ router.get('/user/get/:id', (req, res) => {
 // search user by _id
 router.get('/user/get/:_id', (req, res) => {
   User.findOne({_id: req.params._id}, (err, user) => {
-    if(err) res.status(500).json({error: `user findOne error`});
+    if(err) res.status(400).json({error: `user findOne error`});
     if(!user) res.status(404).json({msg: `user not found`});
     else
     {
@@ -111,7 +112,7 @@ router.get('/user/get/:_id', (req, res) => {
 // search user by name
 router.get('/user/get/:name', (req, res) => {
   User.findOne({name: req.params.name}, (err, user) => {
-    if(err) res.status(500).json({error: `user findOne error`});
+    if(err) res.status(400).json({error: `user findOne error`});
     if(!user) res.status(404).json({msg: `user not found`});
     else
     {
@@ -124,7 +125,7 @@ router.get('/user/get/:name', (req, res) => {
 // update user by id
 router.put('/user/update/:userId', function(req, res){
   User.findById(req.params.userId, function(err, user){
-    if(err) return res.status(500).json({ error: 'database failure' } );
+    if(err) return res.status(400).json({ error: 'database failure' } );
     if(!user) return res.status(404).json({ error: 'user not found' });
 
     if(req.body._id) user._id = req.body._id;
@@ -133,8 +134,12 @@ router.put('/user/update/:userId', function(req, res){
     if(req.body.createdAt) user.createdAt = req.body.createdAt;
 
     user.save(function(err){
-      if(err) return res.state(500).json({error: 'user update 실패'});
-      else res.json({message: 'user update 성공'});
+      if(err) return res.state(400).json({error: 'user update 실패'});
+      else 
+      {
+        res.json({message: 'user update 성공'});
+        return res.status(200).json(user);
+      }
     });
   })
 })
@@ -156,7 +161,7 @@ router.post('/message/create', function(req, res){
     else
     {
       console.log('message.save 성공');
-      return res.status(200).json({msg: 'message save 성공'});
+      return res.status(201).json({msg: 'message save 성공'});
     }
   })
 });
@@ -166,7 +171,11 @@ router.delete('/message/delete/:messageId', function(req, res){
   message.findOneAndDelete({
     _id: req.params.messageId
   }, function(err){
-    if(err) console.log('message.remove error');
+    if(err) 
+    {
+      console.log('message.remove error');
+      return res.state(400).json({msg: 'message.remove error'});
+    }
     else
     {
       console.log('message.remove 성공');
