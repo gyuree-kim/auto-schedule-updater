@@ -1,8 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const cors = require('cors'); 
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const router = require('./routes');
-const morgan = require('morgan');
 
 // Express 프레임워크를 시작하는 부분
 const app = express();
@@ -11,9 +12,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-
-// var router1 = require('./routes')(app, Image)
-//var Image = require('./models/image');
+app.use(cors());
 
 // 포트 설정하는 부분
 const port = process.env.PORT || 3000;
@@ -30,9 +29,14 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 // 실제로 연결되는 곳.
-mongoose.connect(url);
-
-// 서버를 시작하는 부분
-app.listen(3000, ()=>{
-    console.log("Listening on port %{port}")
+mongoose.connect(url, function(err){
+    if(err) {
+        console.log('Unable to connect to the mongoDB server.error', err);
+    }
+    else {
+        // 서버를 시작하는 부분
+        app.listen(3000, ()=>{
+        console.log(`Listening on port ${port}, go to localhost:3000/`)
 })
+    }
+});
