@@ -70,4 +70,41 @@ router.post('/register', (req, res)=>{
   });
 });
 
+// create message
+router.post('/message/create', function(req, res){
+  const message = new Message({
+    chatRoomId: req.body.chatRoomId,
+    sender: req.body.sender,
+    content: req.body.content,
+    createdAt: new Date
+  })
+  message.save((err) => {
+    if(err)
+    {
+      console.log('message.save error');
+      return res.state(400).json({msg: 'message save error'});
+    }
+    else
+    {
+      console.log('message.save 성공');
+      return res.status(200).json({msg: 'message save 성공'});
+    }
+  })
+});
+
+// remove message by id
+router.delete('/message/delete/:messageId', function(req, res){
+  message.findOneAndDelete({
+    _id: req.params.messageId
+  }, function(err){
+    if(err) console.log('message.remove error');
+    else
+    {
+      console.log('message.remove 성공');
+      return res.state(400).json({msg: 'message remove 성공'});
+    }
+  })
+});
+
+
 module.exports = router;
