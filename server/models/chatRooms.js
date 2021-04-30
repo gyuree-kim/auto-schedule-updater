@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('./user');
+const Message = require('./message');
 
 const chatRoomSchema = new Schema({
     id: { type: Number, unique: true },
-    users: [Number],      //user id list
-    messages: [Number], //message id list
+    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
     createdAt: Date
 },
 {
@@ -12,8 +14,8 @@ const chatRoomSchema = new Schema({
 });
 
 const chatRooms = new Schema({
-    userId: Number, //fk
-    chatRooms: [Number], //chatroom id list
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    chatRoomId: [{ type: Schema.Types.ObjectId, ref: 'ChatRooms' }],
     updatedAt: Date
 },
 {
