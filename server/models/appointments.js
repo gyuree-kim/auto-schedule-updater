@@ -4,7 +4,7 @@ const ChatRooms = require('./chatRooms');
 const User = require('./user');
 
 const appointmentSchema = new Schema({
-    id: { type: Number, unique: true },
+    _id: Schema.Types.ObjectId,
     chatRoomId: { type: Schema.Types.ObjectId, ref: 'ChatRooms' },
     date: String,
     time: String,
@@ -14,7 +14,6 @@ const appointmentSchema = new Schema({
 });
 
 const appointments = new Schema({
-    id: { type: Number, unique: true },
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
     appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }],
     updatedAt: Date
