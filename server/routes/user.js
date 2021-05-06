@@ -190,8 +190,8 @@ router.put('/:userId', function(req, res){
 })
 
 // remove user
-router.delete('/_id/:_id', function(req, res){
-  User.findOne({_id: req.params._id}, (err, user) =>{
+router.delete('/id/:id', function(req, res){
+  User.findOne({id: req.params.id}, (err, user) =>{
     user.remove( {}, function(err, user){  
       if(err) res.status(500).json("db failure");
       else 
