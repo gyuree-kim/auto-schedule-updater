@@ -42,12 +42,17 @@ router.get("/", function (req, res, next) {
         description: "update user by userId",
         method: "put",
       },
-      // message
       {
-        name: `${req.headers.host}/api/messages/:chatRoomId`,
-        description: "get all messages by chatRoomId",
-        method: "get",
+        name: `${req.headers.host}/api/user/:userId`,
+        description: "update user by userId",
+        method: "put",
       },
+      {
+        name: `${req.headers.host}/api/user/:id`,
+        description: "get all messages by user id",
+        method: "delete",
+      },
+      // message
       {
         name: `${req.headers.host}/api/message/:content`,
         description: "get message with content",
@@ -97,24 +102,24 @@ router.get("/", function (req, res, next) {
       },
       {
         name: `${req.headers.host}/api/chatRoom/:userId`,
-        description: "search chatRoom by userId",
+        description: "get all chatRooms by userId",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/chatRoom/:chatRoomId`,
-        description: "remove chatRoom by chatRoomId",
-        method: "delete",
-      },
+        name: `${req.headers.host}/api/chatRoom/:chatRoomId/recent-message`,
+        description: "get recent message by chatRoomId",
+        method: "get",
+      },      
       {
         name: `${req.headers.host}/api/chatRoom/:chatRoomId`,
         description: "update chatRoom by chatRoomId",
         method: "put",
       },
       {
-        name: `${req.headers.host}/api/chatRooms/:userId`,
-        description: "get all chatRooms by userId",
-        method: "get",
-      },
+        name: `${req.headers.host}/api/chatRoom/:chatRoomId`,
+        description: "remove chatRoom by chatRoomId",
+        method: "delete",
+      }
     ],
   });
 });

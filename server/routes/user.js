@@ -130,12 +130,12 @@ router.post('/login', (req, res) => {
 // search user by id
 router.get('/id/:id', (req, res) => {
   User.findOne({id: req.params.id}, (err, user) => {
-    if(err) { res.status(400).json({error: `user findOne error`}); }
+    if(err) { res.status(500).json({error: `db failure`}); }
     if(!user) { res.status(404).json({msg: `user not found`}); }
     else
     {
       console.log('user findOne by id 성공');
-      return res.status(200).json(user);
+      return res.status(200).send(user);
     }
   })
 })
@@ -143,12 +143,12 @@ router.get('/id/:id', (req, res) => {
 // search user by _id
 router.get('/_id/:_id', (req, res) => {
   User.findOne({_id: req.params._id}, (err, user) => {
-    if(err) res.status(400).json({error: `user findOne error`});
+    if(err) res.status(500).json({error: `db failure`});
     if(!user) res.status(404).json({msg: `user not found`});
     else
     {
       console.log('user findOne by _id 성공');
-      return res.status(200).json(user);
+      return res.status(200).send(user);
     }
   })
 })
@@ -156,7 +156,7 @@ router.get('/_id/:_id', (req, res) => {
 // search user by name
 router.get('/name/:name', (req, res) => {
   User.findOne({name: req.params.name}, (err, user) => {
-    if(err) res.status(400).json({error: `user findOne error`});
+    if(err) res.status(500).json({error: `db failure`});
     if(!user) res.status(404).json({msg: `user not found`});
     else
     {
@@ -168,37 +168,39 @@ router.get('/name/:name', (req, res) => {
 
 // update user by id
 router.put('/:userId', function(req, res){
-  User.findById(req.params.userId, function(err, user){
-    if(err) return res.status(400).json({ error: 'database failure' } );
-    if(!user) return res.status(404).json({ error: 'user not found' });
+  User.findOne({ id: req.params.userId }, function(err, user){
+    if(err) res.status(400).json({ error: 'database failure' } );
+    if(!user) res.status(404).json({ error: 'user not found' });
 
-    if(req.body._id) user._id = req.body._id;
+    if(req.body.id) user.id = req.body.id;
     if(req.body.name) user.name = req.body.name;
     if(req.body.password) user.password = req.body.password;
+    if(req.body.color) user.color = req.body.color;
     if(req.body.createdAt) user.createdAt = req.body.createdAt;
 
     user.save(function(err){
-      if(err) return res.state(400).json({error: 'user update 실패'});
+      if(err) res.state(500).json({error: 'database error'});
       else 
       {
         res.json({message: 'user update 성공'});
-        return res.status(200).json(user);
+        res.status(200).json(user);
       }
     });
   })
 })
 
 // remove user
-router.delete('/:_id', function(req, res){
-  User.find({id: req.params._id})
-    .remove( {}, function(err, user){  
-      if(err) res.status(400);
+router.delete('/id/:id', function(req, res){
+  User.findOne({id: req.params.id}, (err, user) =>{
+    user.remove( {}, function(err, user){  
+      if(err) res.status(500).json("db failure");
       else 
       {
         res.send(`delete success ${user}`)
         res.status(200);
       }
-  })
+    })
+  }) 
 })
 
 module.exports = router;
