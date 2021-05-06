@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
     apilist: [
       // user
       {
-        name: `${req.headers.host}/api/users`,
+        name: `${req.headers.host}/api/user`,
         description: "get all users",
         method: "get",
       },
@@ -23,22 +23,22 @@ router.get("/", function (req, res, next) {
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/user/search/:id`,
+        name: `${req.headers.host}/api/user/id/:id`,
         description: "search user by id",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/search/:_id`,
+        name: `${req.headers.host}/api/user/_id/:_id`,
         description: "search user by _id",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/search/:name`,
-        description: "search user by name",
+        name: `${req.headers.host}/api/user/name/:name`,
+        description: "search users by name",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/update/:userId`,
+        name: `${req.headers.host}/api/user/:userId`,
         description: "update user by userId",
         method: "put",
       },
@@ -54,28 +54,33 @@ router.get("/", function (req, res, next) {
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/message/create`,
+        name: `${req.headers.host}/api/message/:_id`,
+        description: "get a message",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/message`,
         description: "create new message",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/message/remove/:messageId`,
+        name: `${req.headers.host}/api/message/:messageId`,
         description: "remove message by messageId",
         method: "delete",
       },
       // appointment
       {
-        name: `${req.headers.host}/api/appointment/create`,
+        name: `${req.headers.host}/api/appointment`,
         description: "create a new appointment",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/appointment/remove/:id`,
+        name: `${req.headers.host}/api/appointment/:id`,
         description: "remove appointment by id",
         method: "delete",
       },
       {
-        name: `${req.headers.host}/api/appointment/update/:id`,
+        name: `${req.headers.host}/api/appointment/:id`,
         description: "update appointment by id",
         method: "put",
       },
@@ -86,22 +91,22 @@ router.get("/", function (req, res, next) {
       },
       // chatroom
       {
-        name: `${req.headers.host}/api/chatRoom/create/:userId`,
+        name: `${req.headers.host}/api/chatRoom/:userId`,
         description: "create new chatRoom with userId",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/chatRoom/search/:userId`,
+        name: `${req.headers.host}/api/chatRoom/:userId`,
         description: "search chatRoom by userId",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/chatRoom/remove/:chatRoomId`,
+        name: `${req.headers.host}/api/chatRoom/:chatRoomId`,
         description: "remove chatRoom by chatRoomId",
         method: "delete",
       },
       {
-        name: `${req.headers.host}/api/chatRoom/update/:chatRoomId`,
+        name: `${req.headers.host}/api/chatRoom/:chatRoomId`,
         description: "update chatRoom by chatRoomId",
         method: "put",
       },

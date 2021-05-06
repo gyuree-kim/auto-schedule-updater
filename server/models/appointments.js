@@ -4,7 +4,6 @@ const ChatRooms = require('./chatRooms');
 const User = require('./user');
 
 const appointmentSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     chatRoomId: { type: Schema.Types.ObjectId, ref: 'ChatRooms' },
     date: String,
     time: String,
