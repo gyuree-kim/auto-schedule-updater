@@ -42,6 +42,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     //Rxjava
@@ -50,7 +53,7 @@ dependencies {
     //matrerial edit text
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     //matrerial styled dialog
-    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    //implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
 
 
 }
