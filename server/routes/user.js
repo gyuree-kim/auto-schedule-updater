@@ -68,7 +68,7 @@ router.post('/register', (req, res)=>{
 });
 
 // search user by id
-router.get('/search/:id', (req, res) => {
+router.get('/id/:id', (req, res) => {
   User.findOne({id: req.params.id}, (err, user) => {
     if(err) { res.status(400).json({error: `user findOne error`}); }
     if(!user) { res.status(404).json({msg: `user not found`}); }
@@ -81,7 +81,7 @@ router.get('/search/:id', (req, res) => {
 })
 
 // search user by _id
-router.get('/search/:_id', (req, res) => {
+router.get('/_id/:_id', (req, res) => {
   User.findOne({_id: req.params._id}, (err, user) => {
     if(err) res.status(400).json({error: `user findOne error`});
     if(!user) res.status(404).json({msg: `user not found`});
@@ -94,7 +94,7 @@ router.get('/search/:_id', (req, res) => {
 })
 
 // search user by name
-router.get('/search/:name', (req, res) => {
+router.get('/name/:name', (req, res) => {
   User.findOne({name: req.params.name}, (err, user) => {
     if(err) res.status(400).json({error: `user findOne error`});
     if(!user) res.status(404).json({msg: `user not found`});
@@ -107,7 +107,7 @@ router.get('/search/:name', (req, res) => {
 })
 
 // update user by id
-router.put('/update/:userId', function(req, res){
+router.put('/:userId', function(req, res){
   User.findById(req.params.userId, function(err, user){
     if(err) return res.status(400).json({ error: 'database failure' } );
     if(!user) return res.status(404).json({ error: 'user not found' });
