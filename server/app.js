@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // 포트 설정하는 부분
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 // API를 route하는 부분
 app.use('/api', router);
@@ -35,8 +35,8 @@ mongoose.connect(url, function(err){
     }
     else {
         // 서버를 시작하는 부분
-        app.listen(3000, ()=>{
-        console.log(`Listening on port ${port}, go to localhost:3000/`)
+        app.listen(port, ()=>{
+        console.log(`Listening on port ${port}`)
 })
     }
 });
