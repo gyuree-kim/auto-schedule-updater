@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ChatRooms = require('./chatRooms');
+const User = require('./user');
 
 const message = new Schema({
-    _id: Schema.Types.ObjectId,
     chatRoomId: { type: Schema.Types.ObjectId, ref: 'ChatRooms' },
-    sender: { type: String, required: true},
+    sender: { type: Schema.Types.ObjectId, ref: 'User' },
     content: { type: String, required: true},
+    isRead: Boolean,
     createdAt: Date
 },
 { 

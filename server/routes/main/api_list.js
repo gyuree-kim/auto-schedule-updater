@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
     apilist: [
       // user
       {
-        name: `${req.headers.host}/api/users`,
+        name: `${req.headers.host}/api/user`,
         description: "get all users",
         method: "get",
       },
@@ -34,7 +34,7 @@ router.get("/", function (req, res, next) {
       },
       {
         name: `${req.headers.host}/api/user/name/:name`,
-        description: "search user by name",
+        description: "search users by name",
         method: "get",
       },
       {
@@ -51,6 +51,11 @@ router.get("/", function (req, res, next) {
       {
         name: `${req.headers.host}/api/message/:content`,
         description: "get message with content",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/message/:_id`,
+        description: "get a message",
         method: "get",
       },
       {

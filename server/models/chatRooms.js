@@ -4,10 +4,10 @@ const User = require('./user');
 const Message = require('./message');
 
 const chatRoomSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
-    createdAt: Date
+    createdAt: Date,
+    recentMsg: { type: Schema.Types.ObjectId, ref: 'Message' }
 },
 {
     timestamps: true
