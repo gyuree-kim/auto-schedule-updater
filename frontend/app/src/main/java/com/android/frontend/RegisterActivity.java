@@ -28,19 +28,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_register_id, et_register_name, et_register_pw;
     private Button btn_register;
-    //서버1
-    CompositeDisposable compositeDisposable = new CompositeDisposable(); //원본엔 login activity에만 있음.
-    IMyService iMyService;
-    //서버 방법2
+
+    //서버
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://172.30.1.34:3000";
+    private String BASE_URL = "http://59.16.214.224:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//서버방법2
+//서버
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -65,32 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-    /*
-    private void registerUser(String name, String id, String password) {
 
-        if(TextUtils.isEmpty(name)){
-            Toast.makeText(this, "Name cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(id)){
-            Toast.makeText(this, "Id cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Password cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        compositeDisposable.add(iMyService.registerUser(id, name, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String respond) throws Exception {
-                        Toast.makeText(RegisterActivity.this, ""+respond, Toast.LENGTH_SHORT).show();
-                    }
-                }));
-    }*/
     private void registerUser(String name, String id, String password) {
         HashMap<String, String> map = new HashMap<>();
 

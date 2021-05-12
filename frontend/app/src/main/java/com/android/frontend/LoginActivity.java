@@ -11,15 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.frontend.Retrofit.IMyService;
-import com.android.frontend.Retrofit.RetrofitClient;
-
 import java.util.HashMap;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -31,35 +24,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText et_login_id, et_login_pw;
     private Button btn_login, btn_login_register;
-//서버 방법1
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    IMyService iMyService;
-//서버 방법2
+
+    //server
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://172.30.1.34:3000";
-
-
-    @Override
-    protected void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
-    }
+    private String BASE_URL = "http://59.16.214.224:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //서버방법2
+        //server
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        //init service
-        Retrofit retrofitClient = RetrofitClient.getInstance();
-        iMyService = retrofitClient.create(IMyService.class);
 
         //init view
         et_login_id = (EditText) findViewById(R.id.et_id);
@@ -85,27 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    /*
-    private void loginUser(String id, String password) {
-        if(TextUtils.isEmpty(id)){
-            Toast.makeText(this, "Name cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Password cannot be null or empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        compositeDisposable.add(iMyService.loginUser(id, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-
-                    }
-                }));
-    }*/
     private void loginUser(String id, String password) {
         HashMap<String, String> map = new HashMap<>();
 
