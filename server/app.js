@@ -25,18 +25,23 @@ const url = "mongodb://localhost:27017"
 const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function(){
-    // CONNECTED TO MONGODB SERVER
     console.log("Connected to mongod server");
 });
 // 실제로 연결되는 곳.
-mongoose.connect(url, function(err){
+mongoose.connect(url, 
+    {
+        dbName: 'auto-schedule-updater',
+        useCreateIndex: true,
+        useNewUrlParser: true
+    }, function(err){
+
     if(err) {
         console.log('Unable to connect to the mongoDB server.error', err);
     }
     else {
         // 서버를 시작하는 부분
-        app.listen(3000, ()=>{
-        console.log(`Listening on port ${port}, go to localhost:3000/`)
+        app.listen(port, ()=>{
+        console.log(`Listening on port ${port}`)
 })
     }
 });
