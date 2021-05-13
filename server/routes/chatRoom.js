@@ -90,6 +90,19 @@ router.get('/:userId', (req, res) => {
   })
 })
 
+// get a chatRoom by _id - ok
+router.get('/_id/:_id', (req, res) => {
+  const filter = { _id: req.params._id };
+  ChatRoom.findOne(filter, (err, room)=>{
+    if(err) return res.status(500).send(err)
+    if(!room) return res.status(404).send(`chatRoom not found`);
+    else
+    {
+      return res.status(200).send(room)
+    }
+  })
+})
+
 //get recent msg data - ok
 router.get('/:chatRoomId/recent-message', (req, res) => {
   const filter = { _id: req.params.chatRoomId };
