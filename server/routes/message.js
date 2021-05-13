@@ -1,51 +1,135 @@
 var express = require('express');
 var router = express.Router();
 
-// models
 const User = require('../models/user');
 const Message = require('../models/message');
+const ChatRoom = require('../models/chatRooms');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('hello message!');
+// create message - ok
+router.post('/', function(req, res){
+  try{
+    const chatRoomId = req.body.chatRoomId;
+    const sender = req.body.sender;
+
+    async function findChatRoom(){
+      const chatRoom = await ChatRoom.findOne(
+        {_id:chatRoomId}, (err)=>{
+        if(err) throw err;
+      });
+      if(!chatRoom) return res.status(404).send("chatroom not found");
+      console.log("found chatroom");
+    }
+    async function findUser(){
+      const user = await ChatRoom.findOne({id:sender}, (err)=>{
+        if(err) throw err;
+      });
+      if(!user) return res.status(404).send("user not found");
+      console.log("found user");
+    }
+    findChatRoom()
+    findUser()
+
+    const message = new Message({
+      chatRoomId: chatRoomId,
+      sender: sender,
+      content: req.body.content,
+      isRead: false,
+      createdAt: new Date
+    })
+    message.save((err) => {
+      if(err) throw err;
+      else return res.status(201).send(message);
+    })
+  } catch(e){
+    res.status(500).send(e);
+  }
 });
 
-// create message
-router.post('/create', function(req, res){
-  const message = new Message({
-    chatRoomId: req.body.chatRoomId,
-    sender: req.body.sender,
-    content: req.body.content,
-    createdAt: new Date
-  })
-  message.save((err) => {
-    if(err)
-    {
-      console.log('message.save error');
-      return res.state(400).json({msg: 'message save error'});
+// get all messages - ok
+router.get('/', (req, res) => {
+  try{
+    async function getMessage(){
+      const message = await Message.find({});
+      if(!message.length){
+        return res.status(404).send("message not found");
+      }
+      else res.status(200).send(message);
     }
-    else
-    {
-      console.log('message.save 성공');
-      return res.status(201).json({msg: 'message save 성공'});
-    }
-  })
-});
+    getMessage();
+  }catch(e){
+    res.status(500).send(e);
+  }
+})
 
-// remove message by id
-router.delete('/remove/:messageId', function(req, res){
-  message.findOneAndDelete({
-    _id: req.params.messageId
-  }, function(err){
-    if(err) 
-    {
-      console.log('message.remove error');
-      return res.state(400).json({msg: 'message.remove error'});
-    }
+// get a message by messageId - ok
+router.get('/_id/:messageId', (req, res) => {
+  const filter = {_id: req.params.messageId};
+  Message.findOne(filter, (err, result)=>{
+    if(err) res.status(400).json({msg: `db error`});
+    if(!result) res.status(404).json({msg: `message not found`});
     else
     {
-      console.log('message.remove 성공');
-      return res.state(400).json({msg: 'message remove 성공'});
+      return res.status(200).send(`success ${result}`);
+    }
+  })
+})
+
+// get messages by chatRoomId - ok
+router.get('/chatRoomId/:chatRoomId', (req, res) => {
+  const filter = {chatRoomId: req.params.chatRoomId};
+  Message.find(filter, (err, result)=>{
+    if(err) res.status(400).send(err);
+    if(!result.length) res.status(404).send("message not found");
+    else
+    {
+      return res.status(200).send(`success ${result}`);
+    }
+  })
+})
+
+// get messages with content - ok
+router.get('/content', (req, res) => {
+  const filter = {content: req.body.content};
+  Message.find(filter, (err, result)=>{
+    if(err) res.status(400).json({msg: `db error`});
+    if(!result) res.status(404).json({msg: `message not found`});
+    else
+    {
+      return res.status(200).send(`success ${result}`);
+    }
+  })
+})
+
+// update message - ok
+router.put('/:messageId', function(req, res){
+  const filter = { _id: req.params.messageId };
+  Message.findOne(filter, function(err, message){
+    if(err) res.status(500).send(err);
+    if(!message) res.status(404).send( 'message not found' );
+
+    if(req.body.isRead) message.isRead = req.body.isRead;
+
+    message.save(function(err){
+      if(err) res.status(500).send(err);
+      else 
+      {
+        res.status(200).send(message);
+      }
+    });
+  })
+})
+
+// remove message by id - ok
+router.delete('/:messageId', function(req, res){
+  const filter = {_id: req.params.messageId };
+  Message.findOne(filter, (err, message) => {
+    if(!message) res.status(404).send("msg not found");
+    else
+    {
+      message.remove( {}, function(err, message){
+        if(err) return res.status(400).json({msg: 'message.remove error'});
+        else return res.status(200).send(message);
+      })
     }
   })
 });
