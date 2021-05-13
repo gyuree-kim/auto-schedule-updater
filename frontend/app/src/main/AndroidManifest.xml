@@ -7,18 +7,15 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="AndroidAuthMongoDBNodeJS"
+        android:label="auto-schedule-updater"
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend">
-        <activity android:name=".EmptyActivity"></activity>
-        <activity
-            android:name=".HomeActivity"
-             />
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".TitleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
