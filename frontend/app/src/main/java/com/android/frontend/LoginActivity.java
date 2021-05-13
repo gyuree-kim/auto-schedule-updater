@@ -1,11 +1,9 @@
 package com.android.frontend;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginUser(et_login_id.getText().toString(), et_login_pw.getText().toString());
                 //성공했을때만 다음화면으로 넘어감
-                //Intent intent_list = new Intent(LoginActivity.this, EmptyActivity.class);
-                //LoginActivity.this.startActivity(intent_list);
+                Intent intent_list = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(intent_list);
             }
         });
         btn_login_register.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +83,10 @@ public class LoginActivity extends AppCompatActivity {
 //                    AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
 //                    builder1.setTitle(result.getPassword());
 //                    builder1.setMessage(result.getId());
-//
 //                    builder1.show();
+                    //성공했을때만 다음화면으로 넘어감
+                    //Intent intent_list = new Intent(LoginActivity.this, EmptyActivity.class);
+                    //LoginActivity.this.startActivity(intent_list);
 
                 } else if (response.code() == 404) {
                     Toast.makeText(LoginActivity.this, "Wrong Credentials",

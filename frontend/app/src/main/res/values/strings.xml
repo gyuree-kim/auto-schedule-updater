@@ -4,4 +4,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="url">http://59.16.214.224:3000</string>
+
+
 </resources>
