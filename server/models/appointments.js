@@ -4,6 +4,7 @@ const ChatRooms = require('./chatRooms');
 const User = require('./user');
 
 const appointmentSchema = new Schema({
+    userId: { type: String, ref: 'User' },
     chatRoomId: { type: Schema.Types.ObjectId, ref: 'ChatRooms' },
     date: String,
     time: String,
@@ -12,11 +13,4 @@ const appointmentSchema = new Schema({
     updatedAt: Date
 });
 
-const appointments = new Schema({
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointment' }],
-    updatedAt: Date
-});
-
-var Appointment = mongoose.model('Appointment', appointmentSchema);
-module.exports = mongoose.model('appointments', appointments);
+module.exports = mongoose.model('appointment', appointmentSchema);
