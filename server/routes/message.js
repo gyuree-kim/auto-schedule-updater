@@ -5,31 +5,30 @@ const User = require('../models/user');
 const Message = require('../models/message');
 const ChatRoom = require('../models/chatRooms');
 
-// create message
+// create message - ok
 router.post('/', function(req, res){
-  const chatRoomId = req.body.chatRoomId;
-  const sender = req.body.sender;
+  try{
+    const chatRoomId = req.body.chatRoomId;
+    const sender = req.body.sender;
 
-  async function findChatRoom(){
-    const chatRoom = await ChatRoom.findOne({_id:chatRoomId});
-    if(!chatRoom) return res.status(404).send("chatroom not found");
-    console.log("found chatroom");
-  }
-  async function findUser(){
-    const user = await ChatRoom.findOne({id:sender});
-    if(!user) return res.status(404).send("user not found");
-    console.log("found user");
-  }
-
-  async function createMessage(message){
+    async function findChatRoom(){
+      const chatRoom = await ChatRoom.findOne(
+        {_id:chatRoomId}, (err)=>{
+        if(err) throw err;
+      });
+      if(!chatRoom) return res.status(404).send("chatroom not found");
+      console.log("found chatroom");
+    }
+    async function findUser(){
+      const user = await ChatRoom.findOne({id:sender}, (err)=>{
+        if(err) throw err;
+      });
+      if(!user) return res.status(404).send("user not found");
+      console.log("found user");
+    }
     findChatRoom()
     findUser()
-    message.save((err) => {
-      if(err) return res.status(500).send(err);
-      else return res.status(201).send(message);
-    })
-  }
-  try{
+
     const message = new Message({
       chatRoomId: chatRoomId,
       sender: sender,
@@ -37,8 +36,10 @@ router.post('/', function(req, res){
       isRead: false,
       createdAt: new Date
     })
-    createMessage(message)
-
+    message.save((err) => {
+      if(err) throw err;
+      else return res.status(201).send(message);
+    })
   } catch(e){
     res.status(500).send(e);
   }
