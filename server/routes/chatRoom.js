@@ -122,8 +122,8 @@ router.put('/:chatRoomId', function(req, res){
   const filter = { _id: req.params.chatRoomId };
   ChatRoom.findOne(filter, function(err, chatRoom){
     if(err) res.status(500).json({ msg: 'db failure' } );
+    
     if(!chatRoom) res.status(404).send( 'chatRoom not found' );
-
     if(req.body.recentMsg) chatRoom.recentMsg = req.body.recentMsg;
 
     chatRoom.save(function(err){
