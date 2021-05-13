@@ -8,9 +8,9 @@ const chatRoom = require('./chatRoom');
 const appointment = require('./appointment');
 
 router.use('/main', main);
-router.use('/user', user);
-router.use('/message', message);
-router.use('/chatRoom', chatRoom);
-router.use('/appointment', appointment);
+router.use('/users', user);
+router.use('/messages', message);
+router.use('/chatRooms', chatRoom);
+router.use('/appointments', appointment);
 
 module.exports = router;
