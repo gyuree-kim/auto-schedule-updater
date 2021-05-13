@@ -1,66 +1,131 @@
-package com.android.frontend;
+package com.android.frontend.appointments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ScheduleFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.android.frontend.MainActivity;
+import com.android.frontend.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ScheduleFragment extends Fragment {
-    //인스타강의
+    Context context;
     private View view;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String userId;
+    private Date time;
+    private String location;
+
+    private ArrayList<Appointment> AppointmentList
+    private ListView listView;
+    private ListViewAdapter adapter;
+
+    private Retrofit retrofit;
+    private appointmentRetrofitInterface retrofitInterface;
+    private String BASE_URL = "http://localhost:3000";
 
     public ScheduleFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment scheduleFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ScheduleFragment newInstance(String param1, String param2) {
-        ScheduleFragment fragment = new ScheduleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //view = inflater.inflate(R.layout.fragment_schedule, container, false);
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+        // scheduleFragment에 대한 context, view 받아오기
+        context = getContext();
+        view = inflater.inflate(R.layout.scheduleFragement, container, false);
+
+        // MainActivity에서 유저 정보 받아오기
+        userId = ((MainAcivity) getActivity()).getUserId();
+        time = ((MainAcivity) getActivity()).getTime();
+        location = ((MainAcivity) getActivity()).getLocation();
+
+        // appointments 담을 listview, list 선언
+        listView = (ListView) view.findViewById(R.id.appointmentsListView);
+        appointmentList = new ArrayList<Appointments>();
+
+        // retrofit으로 서버 연결
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        retrofitInterface = retrofit.create(appointmentRetrofitInterface.class);
+
+        // 목록 갱신
+        initAppointments();
+
+        // add 버튼
+        view.findViewById(R.id.add)setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                handleAddDialog();
+            }
+        });
+        
+        // 기타 view 컴포넌트별로 처리
+        // ...
+
+        return view
+
     }
+
+    private void initAppointments(){
+        //  Hashmap 선언 후 key로 쓰일 userId만 전송
+        HashMap<String, String> map = new HashMap<>();
+        map.put("userId", userId);
+        Call<AppointmentsResponse> call = retrofitInterface.executeInit(map);
+
+        call.enqueue(new Callback<CustomersResponse>() {
+            @Override
+            // server로부터 응답 받으면
+            public void onResponse(Call<AppointmentsResponse> call, Response<AppointmentsResponse> response) {
+                System.out.println("appointment init!");
+                // 정상적으로 response 받으면 appointment 갱신
+                if(response.code() == 200){
+                    if (response.body() != null) {
+                        list = response.body().getAppointments();
+
+                        arraylist = new ArrayList<Appointment>();
+                        arraylist.addAll(list);
+                        adapter = new ListViewAdapter(list, context);
+
+                        listView.setAdapter(adapter);
+                    }
+                }
+                // userId에 해당하는 유저가 없을경우
+                else if(response.code()==404){
+                    Toast.makeText(context, "User not found",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            // 에러 발생시
+            @Override
+            public void onFailure(Call<AppointmentsResponse> call, Throwable t) {
+                System.out.println(t.getMessage());
+                Toast.makeText(context, t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    // add 버튼 이벤트 핸들러
+    private void handleAddDialog(){
+
+    }
+    // 그 외 event handling
+    // ...
 }
