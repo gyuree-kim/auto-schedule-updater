@@ -14,14 +14,16 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
-        btn_next = findViewById(R.id.btn_next);
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_login = new Intent(TitleActivity.this, LoginActivity.class);
-                startActivity(intent_login);   //메인에서 로그인으로 이동
-            }
-        });
+        //setContentView(R.layout.activity_title); drawable로 변경했기에 layout필요없다.
+
+        try{
+            Thread.sleep(1000);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }

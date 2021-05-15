@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         //bar 바꿔보기a
 
-
         bottomNavigationView = findViewById(R.id.bottom_navi);
 
         frooms = new RoomsFragment();
