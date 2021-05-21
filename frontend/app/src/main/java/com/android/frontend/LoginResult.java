@@ -3,9 +3,13 @@ package com.android.frontend;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResult {
-    private String password;
     private String id;
+    private String password;
 
+    public LoginResult(String id, String password){
+        this.id = id;
+        this.password = password;
+    }
     public String getPassword() {
         return password;
     }
