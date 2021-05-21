@@ -33,8 +33,9 @@ public class ListViewAdapter extends BaseAdapter{
 
             viewHolder = new ViewHolder();
 
-            viewHolder.textView1 = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.textView2 = (TextView) convertView.findViewById(R.id.email);
+            viewHolder.chatRoomId = (TextView) convertView.findViewById(R.id.chatRoomId);
+            viewHolder.time = (TextView) convertView.findViewById(R.id.time);
+            viewHolder.location = (TextView) convertView.findViewById(R.id.location);
 
             convertView.setTag(viewHolder);
         }

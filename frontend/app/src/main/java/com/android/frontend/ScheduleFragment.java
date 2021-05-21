@@ -68,14 +68,23 @@ public class ScheduleFragment extends Fragment {
         // 목록 갱신
         initAppointments();
 
-        // add 버튼
+        // add button click listener
         view.findViewById(R.id.add)setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 handleAddDialog();
             }
         });
-        
+
+        // list item click listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                Toast.makeText(MainActivity, AppointmentList)
+
+            }
+        });
+
         // 기타 view 컴포넌트별로 처리
         // ...
 
@@ -109,6 +118,11 @@ public class ScheduleFragment extends Fragment {
                 // userId에 해당하는 유저가 없을경우
                 else if(response.code()==404){
                     Toast.makeText(context, "User not found",
+                            Toast.LENGTH_LONG).show();
+                }
+                // server error
+                else if(response.code()==500){
+                    Toast.makeText(context, "Server eror",
                             Toast.LENGTH_LONG).show();
                 }
             }

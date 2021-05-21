@@ -8,24 +8,21 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface AppointmentRetrofitInterface {
-    @POST("appointments/")
-    Call<AppointmentsResponse> executeInit (@Body HashMap<String, String> map);
+    @GET("appointments/userId/{userId}")
+    Call<AppointmentsResponse> executeInit (@Path("userId") String userId);
 
     @POST("appointments/")
     Call<NewAppointment> executeCreateAppointment (@Body HashMap<String, String> map);
 
-    @get("appointments/")
-    Call<Void> executeGetAppointment (@Body HashMap<String, String> map);
+    @GET("appointments/")
+    Call<ResponseGet> executeGetAppointment (@Body HashMap<String, String> map);
 
-    @get("appointments/_id")
-    Call<Void> executeGetAppointmentById (@Body HashMap<String, String> map);
+    @GET("appointments/_id/{_id}")
+    Call<ResponseGet> executeGetAppointmentById (@Path("_id") String _id);
 
-    @get("appointments/userId")
-    Call<Void> executeGetAppointmentByUserId (@Body HashMap<String, String> map);
+    @PUT("appointments/_id/{_id}")
+    Call<Void> executeUpdateAppointment (@Path("_id") String _id);
 
-    @put("appointments/_id")
-    Call<Void> executeUpdateAppointment (@Body HashMap<String, String> map);
-
-    @delete("appointments/_id")
-    Call<Void> executeDeleteAppointment (@Body HashMap<String, String> map);
+    @DELETE("appointments/_id/{_id}")
+    Call<Void> executeDeleteAppointment (@Path("_id") String _id);
 }
