@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -18,6 +19,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.sql.DriverManager.println;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_register_id, et_register_name, et_register_pw;
@@ -26,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     //서버
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://59.16.214.224:3000";
+    private String BASE_URL = "http://172.30.1.57:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +68,21 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("id", id);
         map.put("password", password);
 
-        Call<Void> call = retrofitInterface.executeSignup(map);
+        Call<Void> call = retrofitInterface.executeRegister(map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("register", String.valueOf(response.code()));
+
                 if (response.code() == 200) {
                     Toast.makeText(RegisterActivity.this,
                             "Signed up successfully", Toast.LENGTH_LONG).show();
+                    Log.d("register", String.valueOf(response.code()));
+
                 } else if (response.code() == 400) {
                     Toast.makeText(RegisterActivity.this,
                             "Already registered", Toast.LENGTH_LONG).show();
+                    Log.d("register", String.valueOf(response.code()));
                 }
             }
 
