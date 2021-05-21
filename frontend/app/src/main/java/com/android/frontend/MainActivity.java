@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -43,7 +44,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //서버
+        //main activity에서 id값 받아오기
+        Intent intent = getIntent();
+        String userid = intent.getStringExtra("user id");
+        Log.d("main", userid);
+        if(userid.equals("")){
+            Toast.makeText(MainActivity.this, "입력한 아이디가 없는다.",Toast.LENGTH_LONG).show();
+        }
         //server retrofit 과 연결
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -51,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        //로그인 정보
-        retrofitInterface.executeUser("aaa").enqueue(new Callback<UserItem>() {
+        //로그인 유저 정보 받아오기
+        retrofitInterface.executeUser(userid).enqueue(new Callback<UserItem>() {
             @Override
             public void onResponse(Call<UserItem> call, Response<UserItem> response) {
 //                if(response.isSuccessful()){
@@ -63,9 +70,7 @@ public class MainActivity extends AppCompatActivity {
 //                            Toast.LENGTH_LONG).show();
                     if(response.code() == 200){
                         UserItem user = response.body();
-                        Toast.makeText(MainActivity.this, "getuser"+user.getName(),Toast.LENGTH_LONG).show();
-                        Toast.makeText(MainActivity.this, "user find success",
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "getuser : "+user.getName(),Toast.LENGTH_LONG).show();
                         Log.d("main", String.valueOf(response.code()));
                     } else if (response.code() == 404) {
                         Toast.makeText(MainActivity.this, "user not found",
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-        
+
         bottomNavigationView = findViewById(R.id.bottom_navi);
 
         frooms = new RoomsFragment();
