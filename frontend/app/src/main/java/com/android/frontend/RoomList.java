@@ -44,7 +44,7 @@ public class RoomList extends BaseAdapter {
         RoomItem r = rooms.get(position);   //총 몇개의 배열이 있는지.
 
         tv_msg.setText(r.getLast_message());
-        tv_read.setText(r.getLast_notread());
+        tv_read.setText(String.valueOf(r.getLast_notread()));
         tv_sender.setText(r.getLast_sender());
         tv_time.setText(r.getLast_time());
         //iv_profile.setImageDrawable(r.getProfile()); 아직 함수안만듬
