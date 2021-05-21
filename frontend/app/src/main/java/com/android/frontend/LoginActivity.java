@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.sql.DriverManager.println;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,13 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //server
+        //server retrofit 과 연결
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
+        println("retrofit builder() 호출됨");
         //init view
         et_login_id = (EditText) findViewById(R.id.et_id);
         et_login_pw = (EditText) findViewById(R.id.et_pw);
@@ -69,22 +71,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     private void loginUser(String id, String password) {
+        //전달값을 map에 저장.
         HashMap<String, String> map = new HashMap<>();
-
         map.put("id", id);
         map.put("password", password);
-
+        //excute login으로 post
         Call<LoginResult> call = retrofitInterface.executeLogin(map);
-
+        //call의 결과 확인
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if (response.code() == 200) {
 
 //                    LoginResult result = response.body();
-//
 //                    AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
 //                    builder1.setTitle(result.getPassword());
 //                    builder1.setMessage(result.getId());
