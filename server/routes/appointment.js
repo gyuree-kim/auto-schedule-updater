@@ -11,7 +11,7 @@ router.post('/', (req,res) => {
         const userId = req.body.userId; //User.id
         const chatRoomId = req.body.chatRoomId;
 
-        if(!userId) throw Error('username required');
+        if(!userId) throw Error('userId required');
         if(!chatRoomId) throw Error('chatRoomId required')
         async function getUser() {
             const user = await User.findOne({ id: userId });
@@ -75,9 +75,9 @@ router.get('/_id/:_id', (req, res) => {
   })
 })
 
-// get appointments by username - ok
-router.get('/username/:username', (req, res) => {
-  const filter = {username: req.params.username};
+// get appointments by userId - ok
+router.get('/userId/:userId', (req, res) => {
+  const filter = {userId: req.params.userId};
   Appointment.find(filter, (err, result)=>{
     if(err) res.status(400).send(err)
     if(!result) res.status(404).json({msg: `appointment not found`});
