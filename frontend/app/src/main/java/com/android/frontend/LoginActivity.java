@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     //server
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://59.16.214.224:3000";
+    private String BASE_URL = "http://172.30.1.57:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginUser(et_login_id.getText().toString(), et_login_pw.getText().toString());
                 //성공했을때만 다음화면으로 넘어감
-                LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //intent.putExtra("object", user);
-                LoginActivity.this.startActivity(intent);
+//                LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                //intent.putExtra("object", user);
+//                LoginActivity.this.startActivity(intent);
             }
         });
         btn_login_register.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
-                if (response.code() == 200) {
+                Log.d("login", String.valueOf(response.code()));
+                if (response.code() == 201) {
 
 //                    LoginResult result = response.body();
 //                    AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
@@ -92,10 +93,19 @@ public class LoginActivity extends AppCompatActivity {
                     //성공했을때만 다음화면으로 넘어감
                     //Intent intent_list = new Intent(LoginActivity.this, EmptyActivity.class);
                     //LoginActivity.this.startActivity(intent_list);
+                    Toast.makeText(LoginActivity.this,
+                            "Login successfully", Toast.LENGTH_LONG).show();
+                    Log.d("login", String.valueOf(response.code()));
+
+                    LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    //intent.putExtra("object", user);
+                    LoginActivity.this.startActivity(intent);
 
                 } else if (response.code() == 404) {
                     Toast.makeText(LoginActivity.this, "Wrong Credentials",
                             Toast.LENGTH_LONG).show();
+                    Log.d("login", String.valueOf(response.code()));
                 }
             }
 
