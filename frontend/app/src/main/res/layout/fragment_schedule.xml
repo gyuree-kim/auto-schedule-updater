@@ -14,4 +14,9 @@
         android:layout_gravity="center"
         android:textSize="25sp" />
 
+    <ListView
+        android:id="@+id/appointmentsListView"
+        android:layout_width="match_parent"
+        android:layout_height="595dp" />
+
 </FrameLayout>

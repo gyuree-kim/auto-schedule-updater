@@ -4,21 +4,24 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface AppointmentRetrofitInterface {
     @GET("appointments/userId/{userId}")
-    Call<AppointmentsResponse> executeInit (@Path("userId") String userId);
+    Call<AppointmentResponse> executeInit (@Path("userId") String userId);
 
     @POST("appointments/")
-    Call<NewAppointment> executeCreateAppointment (@Body HashMap<String, String> map);
+    Call<AppointmentResponse> executeCreateAppointment (@Body HashMap<String, String> map);
 
     @GET("appointments/")
-    Call<ResponseGet> executeGetAppointment (@Body HashMap<String, String> map);
+    Call<AppointmentResponse> executeGetAppointment (@Body HashMap<String, String> map);
 
     @GET("appointments/_id/{_id}")
-    Call<ResponseGet> executeGetAppointmentById (@Path("_id") String _id);
+    Call<AppointmentResponse> executeGetAppointmentById (@Path("_id") String _id);
 
     @PUT("appointments/_id/{_id}")
     Call<Void> executeUpdateAppointment (@Path("_id") String _id);
