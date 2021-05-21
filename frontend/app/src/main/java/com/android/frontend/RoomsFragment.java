@@ -2,16 +2,19 @@ package com.android.frontend;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RoomsFragment#newInstance} factory method to
+ * Use the {@link RoomsFragment#} factory method to
  * create an instance of this fragment.
+ * newInstance
  */
 public class RoomsFragment extends Fragment {
 
@@ -61,8 +64,20 @@ public class RoomsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //view = inflater.inflate(R.layout.fragment_rooms, container, false);
+        //View view = inflater.inflate(R.layout.fragment_rooms, container, false);
         // Inflate the layout for this fragment
+        ListView lv;
+        //lv = (ListView) getView().findViewById(R.id.lv_chatroom_list);
+//        RoomList roomAdapter = new RoomList();//한번에 넣을댄 여기 인자고 this, 배열, 배열
+//        lv.setAdapter(roomAdapter);
+//
+//        //drauable 넣을땐 ContextCompat.getDrawable(this,R.drawable.apple)
+//        roomAdapter.addRoom("마지막 메세지", 1, "사람", "20200521");
+//        roomAdapter.addRoom("최근 메세지", 2, "고양이", "20210521");
+//        roomAdapter.addRoom("누군가 메세지", 3, "새", "20200111");
+//        roomAdapter.addRoom("그냥 메세지", 1, "치타", "20200330");
+//
+
         return inflater.inflate(R.layout.fragment_rooms, container, false);
     }
 

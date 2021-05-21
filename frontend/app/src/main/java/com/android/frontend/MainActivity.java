@@ -32,7 +32,13 @@ public class MainActivity extends AppCompatActivity {
         frooms = new RoomsFragment();
         fschedule = new ScheduleFragment();
         fsetting = new SettingFragment();
-        setFrag(0); //첫번째 fragment는 rooms화면
+        //setFrag(0); //첫번째 fragment는 rooms화면
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        ft.add(R.id.main_frame, frooms);
+        ft.commit();
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

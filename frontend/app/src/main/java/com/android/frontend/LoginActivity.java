@@ -18,6 +18,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText et_login_id, et_login_pw;
@@ -51,8 +53,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginUser(et_login_id.getText().toString(), et_login_pw.getText().toString());
                 //성공했을때만 다음화면으로 넘어감
-                Intent intent_list = new Intent(LoginActivity.this, MainActivity.class);
-                LoginActivity.this.startActivity(intent_list);
+                LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //intent.putExtra("object", user);
+                LoginActivity.this.startActivity(intent);
             }
         });
         btn_login_register.setOnClickListener(new View.OnClickListener() {
