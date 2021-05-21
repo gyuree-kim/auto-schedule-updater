@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        println("retrofit builder() 호출됨");
         //init view
         et_login_id = (EditText) findViewById(R.id.et_id);
         et_login_pw = (EditText) findViewById(R.id.et_pw);
@@ -99,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    //intent.putExtra("object", user);
+                    intent.putExtra("user id", id);
                     LoginActivity.this.startActivity(intent);
 
                 } else if (response.code() == 404) {
