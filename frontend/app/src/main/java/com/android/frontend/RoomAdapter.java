@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class RoomList extends BaseAdapter {
+public class RoomAdapter extends BaseAdapter {
     ArrayList<RoomItem> rooms = new ArrayList<>();
     @Override
     public int getCount() { //총 몇개인지

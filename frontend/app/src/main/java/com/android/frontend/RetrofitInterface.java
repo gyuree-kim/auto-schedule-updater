@@ -1,4 +1,5 @@
 package com.android.frontend;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,5 +23,8 @@ public interface RetrofitInterface {
 
     @POST("/api/chatRooms/")
     Call<Void> createRoom(@Body HashMap<String, String> map);
+
+    @GET("/api/users/")
+    Call<UserResponse> getAllUsers();
 
 }

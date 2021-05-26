@@ -22,9 +22,8 @@ public class UserItem {
     private String color;
     @SerializedName("createdAt")
     private Date createdAt;
+    public UserItem(){
 
-    public UserItem(String id) {
-        this.id = id;
     }
 
     public String getId() {

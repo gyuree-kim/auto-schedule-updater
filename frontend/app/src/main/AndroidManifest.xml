@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddroomActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".AddroomActivity" />
         <activity
             android:name=".addActivity"
             android:label="@string/title_activity_add"
