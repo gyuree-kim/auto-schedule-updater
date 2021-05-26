@@ -19,4 +19,8 @@ public interface RetrofitInterface {
 
     @GET("/api/users/id/{id}")
     Call<UserItem> getUserById(@Path("id") String id);
+
+    @POST("/api/chatRooms/")
+    Call<Void> createRoom(@Body HashMap<String, String> map);
+
 }

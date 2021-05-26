@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
 
+    private String userId;
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fm;
     private FragmentTransaction ft;
@@ -40,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
         //main activity에서 id값 받아오기
         Intent intent = getIntent();
-        String userid = intent.getStringExtra("user id");
-        Log.d("main", "get userid from loginActivity"+ userid);
-        if(userid.equals("")){
+        userId = intent.getStringExtra("user id");
+        Log.d("main", "get userid from loginActivity"+ userId);
+        if(userId.equals("")){
             Toast.makeText(MainActivity.this, "입력한 아이디가 없다.",Toast.LENGTH_LONG).show();
         }
 
 
-        getLoginUser(userid);
+        getLoginUser(userId);
         //로그인 유저 정보 받아오기
 
 
@@ -97,7 +98,12 @@ public class MainActivity extends AppCompatActivity {
         frooms = new RoomsFragment();
         fschedule = new ScheduleFragment();
         fsetting = new SettingFragment();
-        //setFrag(0); //첫번째 fragment는 rooms화면
+        //activity에서 frag으로 값 전달
+        Bundle bundle = new Bundle(1);  //파라미터는 전달할 값의 개수
+        bundle.putString("userId", userId); //키와 값
+        frooms.setArguments(bundle);
+
+//       setFrag(0); //첫번째 fragment는 rooms화면
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         ft.add(R.id.main_frame, frooms);

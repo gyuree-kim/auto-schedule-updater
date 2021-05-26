@@ -30,6 +30,7 @@ public class RoomsFragment extends Fragment {
     //인스타강의
     private View view;
     private FloatingActionButton fab_add;
+    private String userId;
 
 //
 //    // TODO: Rename parameter arguments, choose names that match
@@ -76,14 +77,29 @@ public class RoomsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //View view = inflater.inflate(R.layout.fragment_rooms, container, false);
+
+        //activity로부터 값 전달받기
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            userId = bundle.getString("userId");    //전달된 값
+        }
+
+
+
         // Inflate the layout for this fragment
         ListView lv;
-        //Toast.makeText(this.getContext(), "This is roomsFragment", Toast.LENGTH_SHORT).show();
+        //data
+//        String[] last_message={"마지막 메세지","최근 메세지","누군가 메세지","그냥 메세지"};
+//        int[] last_notread={1,2,3,1};
+//        String[] last_sender={"사람","고양이","새","개"};
+//        String[] last_time={"20200521","20210521","20200111","20200330"};
         //-----------list view 채팅방 목록
         view = inflater.inflate(R.layout.fragment_rooms, container, false);
         lv = (ListView) view.findViewById(R.id.lv_chatroom_list);
+//        RoomList roomAdapter = new RoomList(this, last_message,last_notread, last_sender,last_time);//한번에 넣기
         RoomList roomAdapter = new RoomList();//한번에 넣을댄 여기 인자고 this, 배열, 배열
         lv.setAdapter(roomAdapter);
+
 
         //drauable 넣을땐 ContextCompat.getDrawable(this,R.drawable.apple)
         roomAdapter.addRoom("마지막 메세지", 1, "사람", "20200521");
@@ -96,9 +112,17 @@ public class RoomsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Material_Light_Dialog);
-                dialog.setContentView(R.layout.content_search);
-                dialog.show();
+                //그냥 다이어로그 띄우기
+//                Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Material_Light_Dialog);
+//                dialog.setContentView(R.layout.content_search);
+//                dialog.show();
+                //엑티비티를 dialog처럼 사용
+//                Intent intent_register = new Intent(getActivity(), AddroomActivity.class);
+//                startActivity(intent_register); //getActivity().
+                //커스텀 다이어로그 클라스 넘기기
+                AddroomDialog addroomDialog = new AddroomDialog(getActivity());
+                addroomDialog.callFunction(userId);
+
             }
         });
 
