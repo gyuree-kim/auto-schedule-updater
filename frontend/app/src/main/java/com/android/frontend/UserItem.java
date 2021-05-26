@@ -66,4 +66,15 @@ public class UserItem {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "UserItem{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", color='" + color + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

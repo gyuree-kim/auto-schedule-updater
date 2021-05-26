@@ -9,16 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.frontend.appointments.ScheduleFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private RoomsFragment frooms;
     private ScheduleFragment fschedule;
     private SettingFragment fsetting;
-    //server
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://172.30.1.57:3000";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,52 +41,57 @@ public class MainActivity extends AppCompatActivity {
         //main activity에서 id값 받아오기
         Intent intent = getIntent();
         String userid = intent.getStringExtra("user id");
-        Log.d("main", userid);
+        Log.d("main", "get userid from loginActivity"+ userid);
         if(userid.equals("")){
-            Toast.makeText(MainActivity.this, "입력한 아이디가 없는다.",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "입력한 아이디가 없다.",Toast.LENGTH_LONG).show();
         }
-        //server retrofit 과 연결
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
+
+        getLoginUser(userid);
         //로그인 유저 정보 받아오기
-        retrofitInterface.executeUser(userid).enqueue(new Callback<UserItem>() {
+
+
+        initFrag();
+        //fragment 세팅 초기화하기
+
+
+    }
+
+    private void getLoginUser(String userid){
+        //server retrofit 과 연결
+        RetrofitClient retrofitClient = new RetrofitClient();
+
+        retrofitClient.server.getUserById(userid).enqueue(new Callback<UserItem>() {
             @Override
             public void onResponse(Call<UserItem> call, Response<UserItem> response) {
-//                if(response.isSuccessful()){
-//                    List<UserItem> data = response.body();
-//                    Log.d("main","successget");
-//                    Log.d("main", data.get(0).getName());
-//                    Toast.makeText(MainActivity.this, "getuser"+data.get(0).getName(),
+                //if (response.isSuccessfule()){
+                if(response.code() == 200){
+                    UserItem user = response.body();
+                    Toast.makeText(MainActivity.this, "getuser : "+user.getName(),Toast.LENGTH_LONG).show();
+                    Log.d("main", String.valueOf("getuser : "+user.getName() + response.code()));
+                } else if (response.code() == 404) {
+//                    Toast.makeText(MainActivity.this, "user not found",
 //                            Toast.LENGTH_LONG).show();
-                    if(response.code() == 200){
-                        UserItem user = response.body();
-                        Toast.makeText(MainActivity.this, "getuser : "+user.getName(),Toast.LENGTH_LONG).show();
-                        Log.d("main", String.valueOf(response.code()));
-                    } else if (response.code() == 404) {
-                        Toast.makeText(MainActivity.this, "user not found",
-                                Toast.LENGTH_LONG).show();
-                        Log.d("main", String.valueOf(response.code()));
-                    }
-                    else if (response.code() == 500) {
-                        Toast.makeText(MainActivity.this, "db failure",
-                                Toast.LENGTH_LONG).show();
-                        Log.d("main", String.valueOf(response.code()));
-                    }
+                    Log.d("main", String.valueOf("user not found" + response.code()));
+                }
+                else if (response.code() == 500) {
+//                    Toast.makeText(MainActivity.this, "db failure",
+//                            Toast.LENGTH_LONG).show();
+                    Log.d("main", "db failure"+String.valueOf(response.code()));
+                }
 //                }
             }
             @Override
             public void onFailure(Call<UserItem> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "fail response",
-                        Toast.LENGTH_LONG).show();
-                Log.d("main","response fail");
+//                Toast.makeText(MainActivity.this, "fail response",
+//                        Toast.LENGTH_LONG).show();
+                Log.d("main","response fail"+t.toString());
                 t.printStackTrace();
             }
         });
+    }
 
+    private void initFrag(){
         bottomNavigationView = findViewById(R.id.bottom_navi);
 
         frooms = new RoomsFragment();
@@ -104,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
         ft = fm.beginTransaction();
         ft.add(R.id.main_frame, frooms);
         ft.commit();
-
-
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -125,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 //fragment 교체하는 실행문
     private void setFrag(int n) {

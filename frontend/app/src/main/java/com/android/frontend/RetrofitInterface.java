@@ -12,11 +12,11 @@ import retrofit2.http.Query;
 public interface RetrofitInterface {
 
     @POST("/api/users/login")
-    Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
+    Call<Void> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/api/users/register")
     Call<Void> executeRegister (@Body HashMap<String, String> map);
 
     @GET("/api/users/id/{id}")
-    Call<UserItem> executeUser(@Path("id") String id);
+    Call<UserItem> getUserById(@Path("id") String id);
 }

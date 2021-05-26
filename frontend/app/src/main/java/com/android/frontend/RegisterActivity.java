@@ -26,21 +26,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_register_id, et_register_name, et_register_pw;
     private Button btn_register;
 
-    //서버
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://172.30.1.57:3000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//서버
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
 
 
         et_register_id = (EditText) findViewById(R.id.et_id);
@@ -62,13 +53,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(String name, String id, String password) {
+        //server와 연결
+
+        RetrofitClient retrofitClient = new RetrofitClient();
+
         HashMap<String, String> map = new HashMap<>();
-
-        map.put("name", name);
-        map.put("id", id);
         map.put("password", password);
+        map.put("id", id);
+        map.put("name", name);
 
-        Call<Void> call = retrofitInterface.executeRegister(map);
+        Call<Void> call = retrofitClient.server.executeRegister(map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -77,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     Toast.makeText(RegisterActivity.this,
                             "Signed up successfully", Toast.LENGTH_LONG).show();
-                    Log.d("register", String.valueOf(response.code()));
+                    Log.d("register", String.valueOf(response.code())+ map);
 
                 } else if (response.code() == 400) {
                     Toast.makeText(RegisterActivity.this,
