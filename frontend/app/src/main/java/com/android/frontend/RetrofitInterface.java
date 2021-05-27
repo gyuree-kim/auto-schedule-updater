@@ -27,4 +27,7 @@ public interface RetrofitInterface {
     @GET("/api/users/")
     Call<UserResponse> getAllUsers();
 
+    @GET("/api/users/chatRoomId/{chatRoomId}")
+    Call<ArrayList<MessageItem>> getMsgById(@Path("chatRoomId") String chatRoomId);
+
 }
