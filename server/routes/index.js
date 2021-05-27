@@ -4,13 +4,11 @@ const router = express.Router();
 const main = require('./main');
 const user = require('./user');
 const message = require('./message');
-const chatRoom = require('./chatRoom');
-const appointment = require('./appointment');
+const event = require('./event');
 
 router.use('/main', main);
 router.use('/users', user);
 router.use('/messages', message);
-router.use('/chatRooms', chatRoom);
-router.use('/appointments', appointment);
+router.use('/events', event);
 
 module.exports = router;
