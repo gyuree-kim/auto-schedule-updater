@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+//roomlist 출력테스트용. 나중에 삭제
 
 public class UserAdapter extends BaseAdapter {
     ArrayList<UserItem> users = new ArrayList<>();

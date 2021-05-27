@@ -60,4 +60,7 @@ public class RoomAdapter extends BaseAdapter {
         r.setLast_time(last_time);
         rooms.add(r);
     }
+    public void addRoomItem(RoomItem r){
+        rooms.add(r);
+    }
 }
