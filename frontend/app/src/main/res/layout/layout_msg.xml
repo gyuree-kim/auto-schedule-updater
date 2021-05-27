@@ -41,7 +41,7 @@
     android:layout_marginRight="16dp"
     android:padding="12dp"
     android:maxWidth="250dp"
-    android:background="@drawable/msgbox"
+    android:background="@drawable/background_msgbox"
     android:textColor="@color/black"/>
 <TextView
     android:id="@+id/tv_time"

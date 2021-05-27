@@ -1,6 +1,6 @@
 package com.android.frontend;
 
-//users: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+//        users: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
 //        messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
 //        createdAt: Date,
 //        recentMsg: { type: Schema.Types.ObjectId, ref: 'Message' }
