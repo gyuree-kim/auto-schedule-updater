@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private RoomsFragment frooms;
-    private ScheduleFragment fschedule;
+    private RoomsFragment fnotice;
+    private ScheduleFragment finfected;
     private SettingFragment fsetting;
 
 
@@ -95,18 +95,18 @@ public class MainActivity extends AppCompatActivity {
     private void initFrag(){
         bottomNavigationView = findViewById(R.id.bottom_navi);
 
-        frooms = new RoomsFragment();
-        fschedule = new ScheduleFragment();
+        fnotice = new RoomsFragment();
+        finfected = new ScheduleFragment();
         fsetting = new SettingFragment();
         //activity에서 frag으로 값 전달
         Bundle bundle = new Bundle(1);  //파라미터는 전달할 값의 개수
         bundle.putString("userId", userId); //키와 값
-        frooms.setArguments(bundle);
+        fnotice.setArguments(bundle);
 
 //       setFrag(0); //첫번째 fragment는 rooms화면
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        ft.add(R.id.main_frame, frooms);
+        ft.add(R.id.main_frame, fnotice);
         ft.commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -130,14 +130,14 @@ public class MainActivity extends AppCompatActivity {
 //fragment 교체하는 실행문
     private void setFrag(int n) {
         fm = getSupportFragmentManager();
-        ft = fm.beginTransaction(); //실제적인 frag교체
+        ft = fm.beginTransaction();
         switch (n) {
             case 0:
-                ft.replace(R.id.main_frame, frooms);
+                ft.replace(R.id.main_frame, fnotice);
                 ft.commit();
                 break;
             case 1:
-                ft.replace(R.id.main_frame, fschedule);
+                ft.replace(R.id.main_frame, finfected);
                 ft.commit();
                 break;
             case 2:

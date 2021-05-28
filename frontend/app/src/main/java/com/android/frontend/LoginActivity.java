@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("login", String.valueOf(response.code()));
                     //성공했을때만 다음화면으로 넘어감
                     //LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), InfectedActivity.class);
                     intent.putExtra("user id", id); //id값 넘겨줌
                     LoginActivity.this.startActivity(intent);
 
