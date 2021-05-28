@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.android.frontend.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

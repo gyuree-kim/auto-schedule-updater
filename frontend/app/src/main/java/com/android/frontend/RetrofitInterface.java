@@ -1,4 +1,6 @@
 package com.android.frontend;
+import com.android.frontend.sns.MessageItem;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

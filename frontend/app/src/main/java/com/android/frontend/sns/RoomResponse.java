@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -6,6 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
+
     String BASE_URL = "http://192.168.0.9:3000"; // 서버 url
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
