@@ -1,4 +1,5 @@
 package com.android.frontend;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,11 +13,21 @@ import retrofit2.http.Query;
 public interface RetrofitInterface {
 
     @POST("/api/users/login")
-    Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
+    Call<Void> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/api/users/register")
     Call<Void> executeRegister (@Body HashMap<String, String> map);
 
     @GET("/api/users/id/{id}")
-    Call<UserItem> executeUser(@Path("id") String id);
+    Call<UserItem> getUserById(@Path("id") String id);
+
+    @POST("/api/chatRooms/")
+    Call<Void> createRoom(@Body HashMap<String, String> map);
+
+    @GET("/api/users/")
+    Call<UserResponse> getAllUsers();
+
+    @GET("/api/users/chatRoomId/{chatRoomId}")
+    Call<ArrayList<MessageItem>> getMsgById(@Path("chatRoomId") String chatRoomId);
+
 }

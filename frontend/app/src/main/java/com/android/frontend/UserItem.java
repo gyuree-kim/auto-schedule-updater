@@ -22,9 +22,8 @@ public class UserItem {
     private String color;
     @SerializedName("createdAt")
     private Date createdAt;
+    public UserItem(){
 
-    public UserItem(String id) {
-        this.id = id;
     }
 
     public String getId() {
@@ -65,5 +64,16 @@ public class UserItem {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserItem{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", color='" + color + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

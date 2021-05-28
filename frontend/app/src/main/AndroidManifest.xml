@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend"
         android:usesCleartextTraffic="true">
+        <activity android:name=".InfectedActivity"></activity>
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".AddroomActivity" />
         <activity
             android:name=".addActivity"
             android:label="@string/title_activity_add"
-            android:theme="@style/Theme.Frontend.NoActionBar"></activity>
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
