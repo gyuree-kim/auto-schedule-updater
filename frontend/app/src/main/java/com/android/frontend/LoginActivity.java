@@ -91,12 +91,6 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
                 Log.d("login", String.valueOf(response.code()));
                 if (response.code() == 201) {
 
-//                    LoginResult result = response.body();
-//                    AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
-//                    builder1.setTitle(result.getPassword());
-//                    builder1.setMessage(result.getId());
-//                    builder1.show();
-
                     Toast.makeText(LoginActivity.this, "login] Login successfully", Toast.LENGTH_LONG).show();
                     Log.d("login", String.valueOf(response.code()));
                     //성공했을때만 다음화면으로 넘어감
