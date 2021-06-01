@@ -1,5 +1,6 @@
 package com.android.frontend;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,8 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static java.sql.DriverManager.println;
 
+import com.pedro.library.AutoPermissions;
+import com.pedro.library.AutoPermissionsListener;
 
-public class LoginActivity extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity implements AutoPermissionsListener{
 
     private EditText et_login_id, et_login_pw;
     private Button btn_login, btn_login_register;
@@ -33,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //필요한 위험 sms 권한 다 띄움
+        AutoPermissions.Companion.loadAllPermissions(this, 101);
 
         //init view
         et_login_id = (EditText) findViewById(R.id.et_id);
@@ -59,6 +65,20 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(intent_register);
             }
         });
+    }
+    //위험권한을 사용자가 승인했는지 나옴
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        AutoPermissions.Companion.parsePermissions(this, requestCode, permissions,this);
+    }
+    @Override
+    public void onDenied(int i, String[] strings) {
+        Toast.makeText(this,"권한거부됨"+strings.length,Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void onGranted(int i, String[] strings) {
+        Toast.makeText(this,"권한승인됨"+strings.length,Toast.LENGTH_LONG).show();
     }
     private void loginUser(String id, String password) {
         //server와 연결
@@ -87,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     //성공했을때만 다음화면으로 넘어감
                     //LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), InfectedActivity.class);
-                    intent.putExtra("user id", id); //id값 넘겨줌
+                    intent.putExtra("userId", id); //id값 넘겨줌
                     LoginActivity.this.startActivity(intent);
 
                 } else if (response.code() == 404) {
