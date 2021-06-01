@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.frontend.appointments.ScheduleFragment;
+import com.android.frontend.sns.RoomsFragment;
+import com.android.frontend.sns.SettingFragment;
+import com.android.frontend.sns.appointments.ScheduleFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;

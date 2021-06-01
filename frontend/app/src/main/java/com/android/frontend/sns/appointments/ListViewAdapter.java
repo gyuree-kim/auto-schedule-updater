@@ -1,4 +1,4 @@
-package com.android.frontend.appointments;
+package com.android.frontend.sns.appointments;
 import com.android.frontend.R;
 
 import android.content.Context;

@@ -1,17 +1,16 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.android.frontend.R;
+import com.android.frontend.RetrofitClient;
+
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,28 +70,28 @@ public class AddroomDialog {
 //        list.add("user");
 //        map.put("invitedUsers", list); //임의로 bbn을 초대 이거 형식 map인지 다시 물어볼것
         //excute login으로 post
-        Call<Void> call = retrofitClient.server.createRoom(map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.d("addroom", String.valueOf(response.code()));
-                if (response.code() == 201) {
-                    //Toast.makeText(AddroomDialog.this, "Login successfully", Toast.LENGTH_LONG).show();
-                    Log.d("addroom", String.valueOf(response.code()));
-
-                } else if (response.code() == 404) {
-                    //Toast.makeText(LoginActivity.this, "Wrong Credentials",Toast.LENGTH_LONG).show();
-                    Log.d("addroom", String.valueOf(response.code()));
-                } else if (response.code() == 500) {
-                    //Toast.makeText(LoginActivity.this, "Wrong Credentials",Toast.LENGTH_LONG).show();
-                    Log.d("addroom", String.valueOf(response.code()));
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                //Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.d("addroom","response fail");
-            }
-        });
+//        Call<Void> call = retrofitClient.server.createRoom(map);
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                Log.d("addroom", String.valueOf(response.code()));
+//                if (response.code() == 201) {
+//                    //Toast.makeText(AddroomDialog.this, "Login successfully", Toast.LENGTH_LONG).show();
+//                    Log.d("addroom", String.valueOf(response.code()));
+//
+//                } else if (response.code() == 404) {
+//                    //Toast.makeText(LoginActivity.this, "Wrong Credentials",Toast.LENGTH_LONG).show();
+//                    Log.d("addroom", String.valueOf(response.code()));
+//                } else if (response.code() == 500) {
+//                    //Toast.makeText(LoginActivity.this, "Wrong Credentials",Toast.LENGTH_LONG).show();
+//                    Log.d("addroom", String.valueOf(response.code()));
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                //Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+//                Log.d("addroom","response fail");
+//            }
+//        });
     }
 }

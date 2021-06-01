@@ -1,4 +1,4 @@
-package com.android.frontend.appointments;
+package com.android.frontend.sns.appointments;
 
 import com.google.gson.annotations.SerializedName;
 import java.sql.Date;

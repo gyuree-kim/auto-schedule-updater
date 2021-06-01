@@ -1,6 +1,5 @@
-package com.android.frontend.appointments;
+package com.android.frontend.sns.appointments;
 
-import com.google.gson.JsonObject;
 import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.http.Body;

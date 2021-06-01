@@ -1,8 +1,10 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.android.frontend.R;
 
 public class AddroomActivity extends AppCompatActivity {
 

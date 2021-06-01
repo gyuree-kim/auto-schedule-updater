@@ -1,22 +1,18 @@
-package com.android.frontend.appointments;
+package com.android.frontend.sns.appointments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import com.android.frontend.R;
 import retrofit2.Call;
@@ -24,7 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.android.frontend.MainActivity;
 
 public class ScheduleFragment extends Fragment {
     Context context;

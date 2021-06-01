@@ -1,4 +1,12 @@
-package com.android.frontend;
+package com.android.frontend.sns;
+
+//        users: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+//        messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+//        createdAt: Date,
+//        recentMsg: { type: Schema.Types.ObjectId, ref: 'Message' }
+//        },
+//        {
+//        timestamps: true
 
 //        users: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
 //        messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],

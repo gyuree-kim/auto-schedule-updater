@@ -1,55 +1,25 @@
 package com.android.frontend;
 
-import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
 public class MessageItem {
-//    const message = new Schema({
-//        chatRoomId: { type: Schema.Types.ObjectId, ref: 'ChatRooms', required: true },
-//        sender: { type: String, ref: 'User', required: true },
-//        content: { type: String, required: true},
-//        isRead: Boolean,
-//                createdAt: { type: Date, required: true }
-//    },
-    @SerializedName("chatRoomId")
-    private String chatRoomId;
-    @SerializedName("sender")
-    private String sender;
-    @SerializedName("content")
+    private String userId;
     private String content;
-    @SerializedName("isRead")
-    private Boolean isRead;
-    @SerializedName("createdAt")
-    private Date createdAt;
-    //db에서 객체로 값을 읽어올때
-    //파라미터가 비어있는 ㄴ생성자가 필요
-    public MessageItem(){
+    private Date sentAt;
 
-    }
-
-    public MessageItem(String chatRoomId, String sender, String content, Boolean isRead, Date createdAt) {
-        this.chatRoomId = chatRoomId;
-        this.sender = sender;
+    public MessageItem(String userId, String content, Date sentAt) {
+        this.userId = userId;
         this.content = content;
-        this.isRead = isRead;
-        this.createdAt = createdAt;
+        this.sentAt = sentAt;
     }
 
-    public String getChatRoomId() {
-        return chatRoomId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setChatRoomId(String chatRoomId) {
-        this.chatRoomId = chatRoomId;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -60,19 +30,21 @@ public class MessageItem {
         this.content = content;
     }
 
-    public Boolean getRead() {
-        return isRead;
+
+    public Date getSentAt() {
+        return sentAt;
     }
 
-    public void setRead(Boolean read) {
-        isRead = read;
+    public void setSentAt(Date sentAt) {
+        this.sentAt = sentAt;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "MessageItem{" +
+                "userId='" + userId + '\'' +
+                ", content='" + content + '\'' +
+                ", sentAt=" + sentAt +
+                '}';
     }
 }
