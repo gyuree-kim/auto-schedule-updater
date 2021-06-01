@@ -1,10 +1,15 @@
 package com.android.frontend;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +21,7 @@ public class InfectedActivity extends AppCompatActivity {
     private static TextView tv_sender;
     private static TextView tv_content;
     private static TextView tv_sentAt;
-    private static SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
+    private static SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public class InfectedActivity extends AppCompatActivity {
         String userId = intent.getStringExtra("userId");
 
         Log.d(TAG, "get userid from loginActivity : "+ userId);
-        Toast.makeText(InfectedActivity.this, "id : "+userId,Toast.LENGTH_LONG).show();
+        Toast.makeText(InfectedActivity.this, "infected] id : "+userId,Toast.LENGTH_LONG).show();
 
 
         getReceiverIntent(intent);
@@ -60,12 +65,12 @@ public class InfectedActivity extends AppCompatActivity {
             String msg = sender+" : "+content+" : ";
             //받은거 출력
             Log.d(TAG, "infected SMS : "+ msg);
-            Toast.makeText(InfectedActivity.this, "infected SMS : "+msg,Toast.LENGTH_LONG).show();
+            Toast.makeText(InfectedActivity.this, "infected] receive SMS : "+msg,Toast.LENGTH_LONG).show();
             tv_sender.setText(sender);
             tv_content.setText(content);
             tv_sentAt.setText(ssentAt);
             }else{
-                Log.d(TAG, "date null : ");
+//                Log.d(TAG, "date null : ");
 
             }
 
@@ -73,6 +78,42 @@ public class InfectedActivity extends AppCompatActivity {
             finish();
         }
 
+    }
+    public void BtnReadSms(View view){
+        //sms read가 허가됬을때
+        if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.READ_SMS") == PackageManager.PERMISSION_GRANTED) {
+//            Log.d(TAG, "sms read 허가됨");
+
+            //문자메세지를 가르킬 커서
+            Cursor cursor = getContentResolver().query(Uri.parse("content://sms"), null, null, null, null);
+            String sender;
+            String content;
+            String ssentAt;
+            Date sentAt;
+            int i=0;
+            if (cursor.moveToFirst()) { // must check the result to prevent exception
+                do {
+                    //2 : sender 4(5) date, 12 content
+
+                    sender = cursor.getString(2);
+                    content = cursor.getString(12);
+                    sentAt = new Date(cursor.getLong(4));
+                    ssentAt = format.format(sentAt);
+                    String msg = sender+content+ssentAt;
+                    Log.d(TAG, "read msg : "+msg);
+//                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                    //화면에 보여주기
+                    tv_sender.setText(sender);
+                    tv_content.setText(content);
+                    tv_sentAt.setText(ssentAt);
+                    // use msgData
+                    i=i+1;
+                } while (cursor.moveToNext());// && i<1
+            } else {
+                // empty box, no SMS
+            }
+
+        }
     }
 
 }

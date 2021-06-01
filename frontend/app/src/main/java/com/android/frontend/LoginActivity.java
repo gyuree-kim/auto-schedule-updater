@@ -50,11 +50,6 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
             @Override
             public void onClick(View v) {
                 loginUser(et_login_id.getText().toString(), et_login_pw.getText().toString());
-                //성공했을때만 다음화면으로 넘어감
-//                LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                //intent.putExtra("object", user);
-//                LoginActivity.this.startActivity(intent);
             }
         });
         //register화면으로 넘김
@@ -74,11 +69,11 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
     }
     @Override
     public void onDenied(int i, String[] strings) {
-        Toast.makeText(this,"권한거부됨"+strings.length,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"login] 권한거부됨"+strings.length,Toast.LENGTH_LONG).show();
     }
     @Override
     public void onGranted(int i, String[] strings) {
-        Toast.makeText(this,"권한승인됨"+strings.length,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"login] 권한승인됨"+strings.length,Toast.LENGTH_LONG).show();
     }
     private void loginUser(String id, String password) {
         //server와 연결
@@ -102,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
 //                    builder1.setMessage(result.getId());
 //                    builder1.show();
 
-                    Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "login] Login successfully", Toast.LENGTH_LONG).show();
                     Log.d("login", String.valueOf(response.code()));
                     //성공했을때만 다음화면으로 넘어감
                     //LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
@@ -111,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
                     LoginActivity.this.startActivity(intent);
 
                 } else if (response.code() == 404) {
-                    Toast.makeText(LoginActivity.this, "Wrong Credentials",
+                    Toast.makeText(LoginActivity.this, "login] Wrong Credentials",
                             Toast.LENGTH_LONG).show();
                     Log.d("login", String.valueOf(response.code()));
                 }
@@ -119,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "login] respond fail "+ t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("login","response fail");
             }
         });
