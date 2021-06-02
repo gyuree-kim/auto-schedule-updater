@@ -5,7 +5,6 @@ const user = new Schema({
     id: { type: String, unique: true }, // nickname
     name: { type: String, required: true }, //real name
     password: { type: String, required: true },
-    color: { type: String, required: true }, //profile color
     createdAt: { type: Date, required: true }
 },
 {

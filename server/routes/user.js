@@ -1,12 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose');
-const mongoClient = require('mongodb').MongoClient
-
-// models
 const User = require('../models/user');
-const ChatRooms = require('../models/chatRooms');
-const Appointments = require('../models/appointments');
 
 // get all users
 router.get('/', (req, res) => {
@@ -16,7 +10,6 @@ router.get('/', (req, res) => {
     if(!userList) res.status(404).json({msg: `users not found`});
     else
     {
-      console.log('find userList 성공');
       return res.status(200).json({userList});
     }
   })
@@ -69,7 +62,6 @@ router.post('/register', (req, res) => {
     id: req.body.id,
     name: req.body.name,
     password: req.body.password,
-    color: "#cecece",
     createdAt: new Date
   });
   const query = { id: newUser.id }
@@ -175,7 +167,6 @@ router.put('/:userId', function(req, res){
     if(req.body.id) user.id = req.body.id;
     if(req.body.name) user.name = req.body.name;
     if(req.body.password) user.password = req.body.password;
-    if(req.body.color) user.color = req.body.color;
     if(req.body.createdAt) user.createdAt = req.body.createdAt;
 
     user.save(function(err){
