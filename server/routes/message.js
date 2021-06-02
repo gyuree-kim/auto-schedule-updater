@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 const Message = require('../models/message');
+const ChatRoom = require('../models/chatRooms');
 
 // create message 
 router.post('/', function(req, res){

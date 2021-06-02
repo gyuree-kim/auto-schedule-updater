@@ -4,7 +4,6 @@
 // const ChatRoom = require('../models/chatRooms');
 // const User = require('../models/user');
 
-// //create chatroom - ok
 // router.post('/', (req, res) => {
 //   try{
 //     const userId = req.body.userId;
