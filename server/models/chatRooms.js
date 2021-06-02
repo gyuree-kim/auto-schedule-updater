@@ -4,22 +4,13 @@ const User = require('./user');
 const Message = require('./message');
 
 const chatRoomSchema = new Schema({
-    _id: Schema.Types.ObjectId,
-    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    users: [{ type: Schema.Types.String, ref: 'User', required: true }],
     messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
-    createdAt: Date
+    createdAt: Date,
+    recentMsg: { type: Schema.Types.ObjectId, ref: 'Message' }
 },
 {
     timestamps: true
 });
 
-const chatRooms = new Schema({
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    chatRoomId: [{ type: Schema.Types.ObjectId, ref: 'ChatRooms' }],
-    updatedAt: Date
-},
-{
-    timestamps: true
-});
-
-module.exports = mongoose.model('chatRooms', chatRooms);
+module.exports = mongoose.model('chatRoom', chatRoomSchema);

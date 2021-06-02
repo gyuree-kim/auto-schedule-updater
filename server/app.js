@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // 포트 설정하는 부분
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 // API를 route하는 부분
 app.use('/api', router);
@@ -25,11 +25,16 @@ const url = "mongodb://localhost:27017"
 const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function(){
-    // CONNECTED TO MONGODB SERVER
     console.log("Connected to mongod server");
 });
 // 실제로 연결되는 곳.
-mongoose.connect(url, function(err){
+mongoose.connect(url, 
+    {
+        dbName: 'auto-schedule-updater',
+        useCreateIndex: true,
+        useNewUrlParser: true
+    }, function(err){
+
     if(err) {
         console.log('Unable to connect to the mongoDB server.error', err);
     }

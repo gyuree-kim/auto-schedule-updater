@@ -13,103 +13,123 @@ router.get("/", function (req, res, next) {
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/login`,
+        name: `${req.headers.host}/api/users/login`,
         description: "user authentication",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/user/register`,
+        name: `${req.headers.host}/api/users/register`,
         description: "register new user",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/user/search/:id`,
+        name: `${req.headers.host}/api/users/id/:id`,
         description: "search user by id",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/search/:_id`,
+        name: `${req.headers.host}/api/users/_id/:_id`,
         description: "search user by _id",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/search/:name`,
-        description: "search user by name",
+        name: `${req.headers.host}/api/users/name/:name`,
+        description: "search users by name",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/update/:userId`,
+        name: `${req.headers.host}/api/users/:userId`,
         description: "update user by userId",
         method: "put",
       },
-      // message
       {
-        name: `${req.headers.host}/api/messages/:chatRoomId`,
-        description: "get all messages by chatRoomId",
-        method: "get",
+        name: `${req.headers.host}/api/users/:userId`,
+        description: "update user by userId",
+        method: "put",
       },
       {
-        name: `${req.headers.host}/api/message/:content`,
+        name: `${req.headers.host}/api/users/:id`,
+        description: "get all messages by user id",
+        method: "delete",
+      },
+      // message
+      {
+        name: `${req.headers.host}/api/messages/:content`,
         description: "get message with content",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/message/create`,
+        name: `${req.headers.host}/api/messages/:_id`,
+        description: "get a message",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/messages`,
         description: "create new message",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/message/remove/:messageId`,
+        name: `${req.headers.host}/api/messages/:messageId`,
         description: "remove message by messageId",
         method: "delete",
       },
       // appointment
       {
-        name: `${req.headers.host}/api/appointment/create`,
+        name: `${req.headers.host}/api/appointments`,
         description: "create a new appointment",
         method: "post",
       },
       {
-        name: `${req.headers.host}/api/appointment/remove/:id`,
+        name: `${req.headers.host}/api/appointments/_id/:_id`,
         description: "remove appointment by id",
         method: "delete",
       },
       {
-        name: `${req.headers.host}/api/appointment/update/:id`,
+        name: `${req.headers.host}/api/appointments/_id/:_id`,
         description: "update appointment by id",
         method: "put",
       },
       {
-        name: `${req.headers.host}/api/appointments/:userId`,
+        name: `${req.headers.host}/api/appointments`,
+        description: "get all appointments",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/appointments/userId/:userId`,
         description: "get all appointments by userId",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/appointments/_id/:_id`,
+        description: "get all appointments by _id",
         method: "get",
       },
       // chatroom
       {
-        name: `${req.headers.host}/api/chatRoom/create/:userId`,
+        name: `${req.headers.host}/api/chatRooms/:userId`,
         description: "create new chatRoom with userId",
         method: "post",
-      },
-      {
-        name: `${req.headers.host}/api/chatRoom/search/:userId`,
-        description: "search chatRoom by userId",
-        method: "get",
-      },
-      {
-        name: `${req.headers.host}/api/chatRoom/remove/:chatRoomId`,
-        description: "remove chatRoom by chatRoomId",
-        method: "delete",
-      },
-      {
-        name: `${req.headers.host}/api/chatRoom/update/:chatRoomId`,
-        description: "update chatRoom by chatRoomId",
-        method: "put",
       },
       {
         name: `${req.headers.host}/api/chatRooms/:userId`,
         description: "get all chatRooms by userId",
         method: "get",
       },
+      {
+        name: `${req.headers.host}/api/chatRooms/:chatRoomId/recent-message`,
+        description: "get recent message by chatRoomId",
+        method: "get",
+      },      
+      {
+        name: `${req.headers.host}/api/chatRooms/:chatRoomId`,
+        description: "update chatRoom by chatRoomId",
+        method: "put",
+      },
+      {
+        name: `${req.headers.host}/api/chatRooms/:chatRoomId`,
+        description: "remove chatRoom by chatRoomId",
+        method: "delete",
+      }
     ],
   });
 });

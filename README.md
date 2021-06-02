@@ -23,7 +23,7 @@ Make sure you should install pm2 to use runtime nodejs process manager. If you h
 ```
 npm install pm2 -g
 ```
-=======
+
 ## How to use
 - Only android users are available
 - Download link: [playstore]()
