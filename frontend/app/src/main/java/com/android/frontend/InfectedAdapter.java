@@ -71,6 +71,12 @@ public class InfectedAdapter extends BaseAdapter {
 
         return convertView;
     }
+    //기존 아이템 추가
+    public void addInfectedItem(InfectedItem i){
+
+        infectedItemList.add(i);
+    }
+
     // 첫 번째 아이템 추가를 위한 함수.
     public void addItem(String location, String date, String time) {
         InfectedItem item = new InfectedItem() ;

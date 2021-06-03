@@ -32,6 +32,8 @@ public class InfectedActivity extends AppCompatActivity {
     private static TextView tv_sentAt;
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
     private static String userId;
+    private ListView lv_infected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,7 @@ public class InfectedActivity extends AppCompatActivity {
         tv_sender = findViewById(R.id.tv_sender);
         tv_content = findViewById(R.id.tv_content);
         tv_sentAt = findViewById(R.id.tv_sentAt);
+        lv_infected = (ListView) findViewById(R.id.lv_infected_list);
         //main activity에서 id값 받아오기
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
@@ -53,29 +56,8 @@ public class InfectedActivity extends AppCompatActivity {
         getReceiverIntent(intent);
 
         //list view 구성
-        ListView lv_infected;
-        InfectedAdapter adapter;
-        //adapter생성
-        adapter = new InfectedAdapter();
-        //참조 및 어뎁터 닫기
-        lv_infected = (ListView) findViewById(R.id.lv_infected_list);
-        lv_infected.setAdapter(adapter);
+        GetInfectedList();
 
-        //아이템 임의 추가
-        adapter.addItem("일원동 허브노래 연습장","03.01-03.02", "15:30-20:00");
-        adapter.addItem("남산타운5상가 1층 탑헤어","03.02", " ");
-        adapter.addItem("서울",138);
-        adapter.addItem("GS25편의점(산삼체육관역점)","03.01-03.03", "14:30-21:30");
-        adapter.addItem("산림 삼포스포렉스","03.02-03.03", " ");
-        adapter.addItem("청천동 철원양평해장국","03.03", "12:00-13:30");
-        adapter.addItem("왕십리",8);
-        adapter.addItem("일원동 허브노래 연습장","03.01-03.02", "15:30-20:00");
-        adapter.addItem("남산타운5상가 1층 탑헤어","03.02", " ");
-        adapter.addItem("서울",138);
-        adapter.addItem("GS25편의점(산삼체육관역점)","03.01-03.03", "14:30-21:30");
-        adapter.addItem("산림 삼포스포렉스","03.02-03.03", " ");
-        adapter.addItem("청천동 철원양평해장국","03.03", "12:00-13:30");
-        adapter.addItem("왕십리",8);
 
 
     }
@@ -99,7 +81,7 @@ public class InfectedActivity extends AppCompatActivity {
             //받은거 출력
             Log.d(TAG, "infected SMS : "+ msg);
             Toast.makeText(InfectedActivity.this, "infected] receive SMS : "+msg,Toast.LENGTH_LONG).show();
-                if(sender.equals("#CMAS#Severe")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
+                if(sender.equals("#CMAS#Sever")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
                     tv_sender.setText(sender);
                     tv_content.setText(content);
                     tv_sentAt.setText(ssentAt);
@@ -142,7 +124,7 @@ public class InfectedActivity extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                     //화면에 보여주기
 
-                    if(sender.equals("#CMAS#Severe")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
+                    if(sender.equals("#CMAS#Sever")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
                         tv_sender.setText(sender);
                         tv_content.setText(content);
                         tv_sentAt.setText(ssentAt);
@@ -193,6 +175,69 @@ public class InfectedActivity extends AppCompatActivity {
                 Log.d("infected","response fail");
             }
         });
+    }
+    private void GetInfectedList(){// Inflate the layout for this fragment
+        //adapter생성
+        InfectedAdapter infectedAdapter = new InfectedAdapter();;
+        lv_infected.setAdapter(infectedAdapter);
+
+        //통신
+        RetrofitClient retrofitClient = new RetrofitClient();
+        Call<InfectedResponse> call = retrofitClient.server.getAllEvents(userId);
+
+
+        call.enqueue(new Callback<InfectedResponse>() {
+            @Override
+            public void onResponse(Call<InfectedResponse> call, Response<InfectedResponse> response) {
+                Log.d(TAG, "응답 : " + String.valueOf(response.code()));
+
+                if(response.code() == 200){
+                    Log.d(TAG, "get events 성공 : " + String.valueOf(response.code()));
+                    InfectedResponse ilist = response.body();
+                    //ArrayList<UserItem> user_list = response.body();
+                    for(InfectedItem item : ilist.items){
+                        String result = item.getType() + "type and "+ item.getLocation();
+                        infectedAdapter.addInfectedItem(item);
+
+                    }
+//                    if (user_list != null){
+//                        if (user_list.items != null && user_list.items.size()>0){
+//                            for (UserItem item : user_list.items){
+//                                userAdapter.addUserItem(item);
+//                            }
+//                        }
+//                    }
+
+                } else if (response.code() == 400) {
+                    Log.d(TAG, ""+String.valueOf(response.code()));
+                }else if (response.code() == 404) {
+                    Log.d(TAG, "events not found" + String.valueOf(response.code()));
+                }
+            }
+            @Override
+            public void onFailure(Call<InfectedResponse> call, Throwable t) {
+                Log.d(TAG,"response fail"+t.toString());
+                t.printStackTrace();
+            }
+        });
+
+
+        //drauable 넣을땐 ContextCompat.getDrawable(this,R.drawable.apple)
+//아이템 임의 추가
+        infectedAdapter.addItem("일원동 허브노래 연습장","03.01-03.02", "15:30-20:00");
+        infectedAdapter.addItem("남산타운5상가 1층 탑헤어","03.02", " ");
+        infectedAdapter.addItem("서울",138);
+        infectedAdapter.addItem("GS25편의점(산삼체육관역점)","03.01-03.03", "14:30-21:30");
+        infectedAdapter.addItem("산림 삼포스포렉스","03.02-03.03", " ");
+        infectedAdapter.addItem("청천동 철원양평해장국","03.03", "12:00-13:30");
+        infectedAdapter.addItem("왕십리",8);
+        infectedAdapter.addItem("일원동 허브노래 연습장","03.01-03.02", "15:30-20:00");
+        infectedAdapter.addItem("남산타운5상가 1층 탑헤어","03.02", " ");
+        infectedAdapter.addItem("서울",138);
+        infectedAdapter.addItem("GS25편의점(산삼체육관역점)","03.01-03.03", "14:30-21:30");
+        infectedAdapter.addItem("산림 삼포스포렉스","03.02-03.03", " ");
+        infectedAdapter.addItem("청천동 철원양평해장국","03.03", "12:00-13:30");
+        infectedAdapter.addItem("왕십리",8);
     }
 
 }

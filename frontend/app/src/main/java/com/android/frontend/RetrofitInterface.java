@@ -30,6 +30,8 @@ public interface RetrofitInterface {
     @POST("/api/messages/")
     Call<Void> createMessage(@Body MessageItem msg);
 
+    @GET("/api/events/eventId/{id}")    //변수 서버에 맞게 수정예정
+    Call<InfectedResponse> getAllEvents(@Path("id") String id);
 //    sns기능으로 안씀
 //    @POST("/api/chatRooms/")
 //    Call<Void> createRoom(@Body HashMap<String, String> map);
