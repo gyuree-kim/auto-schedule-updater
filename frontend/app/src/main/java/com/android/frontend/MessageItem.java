@@ -1,5 +1,6 @@
 package com.android.frontend;
 
+
 import java.util.Date;
 
 public class MessageItem {
@@ -28,6 +29,7 @@ public class MessageItem {
     public void setContent(String content) {
         this.content = content;
     }
+
 
     public Date getSentAt() {
         return sentAt;

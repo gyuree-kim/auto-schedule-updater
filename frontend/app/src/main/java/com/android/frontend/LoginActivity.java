@@ -91,11 +91,13 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
                 Log.d("login", String.valueOf(response.code()));
                 if (response.code() == 201) {
 
+
                     Toast.makeText(LoginActivity.this, "login] Login successfully", Toast.LENGTH_LONG).show();
                     Log.d("login", String.valueOf(response.code()));
                     //성공했을때만 다음화면으로 넘어감
                     //LoginResult user = new LoginResult(et_login_id.getText().toString(), et_login_pw.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), InfectedActivity.class);
+
                     intent.putExtra("userId", id); //id값 넘겨줌
                     LoginActivity.this.startActivity(intent);
 
@@ -108,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+
                 Toast.makeText(LoginActivity.this, "login] respond fail "+ t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d("login","response fail");
             }

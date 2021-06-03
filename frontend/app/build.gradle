@@ -28,6 +28,7 @@ android {
     }
     task prepareKotlinBuildScriptModel {
 
+
     }
 }
 //sms권한 추가부분
