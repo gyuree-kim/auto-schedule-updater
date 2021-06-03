@@ -11,8 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.frontend.sns.appointments.ListViewAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,8 +49,34 @@ public class InfectedActivity extends AppCompatActivity {
 
         Log.d(TAG, "get userid from loginActivity : "+ userId);
         Toast.makeText(InfectedActivity.this, "infected] id : "+userId,Toast.LENGTH_LONG).show();
-
+        //receiver에서 받은 문자메세지 정보 받아오기
         getReceiverIntent(intent);
+
+        //list view 구성
+        ListView lv_infected;
+        InfectedAdapter adapter;
+        //adapter생성
+        adapter = new InfectedAdapter();
+        //참조 및 어뎁터 닫기
+        lv_infected = (ListView) findViewById(R.id.lv_infected_list);
+        lv_infected.setAdapter(adapter);
+
+        //아이템 임의 추가
+        adapter.addItem("일원동 허브노래 연습장","03.01-03.02", "15:30-20:00");
+        adapter.addItem("남산타운5상가 1층 탑헤어","03.02", " ");
+        adapter.addItem("서울",138);
+        adapter.addItem("GS25편의점(산삼체육관역점)","03.01-03.03", "14:30-21:30");
+        adapter.addItem("산림 삼포스포렉스","03.02-03.03", " ");
+        adapter.addItem("청천동 철원양평해장국","03.03", "12:00-13:30");
+        adapter.addItem("왕십리",8);
+        adapter.addItem("일원동 허브노래 연습장","03.01-03.02", "15:30-20:00");
+        adapter.addItem("남산타운5상가 1층 탑헤어","03.02", " ");
+        adapter.addItem("서울",138);
+        adapter.addItem("GS25편의점(산삼체육관역점)","03.01-03.03", "14:30-21:30");
+        adapter.addItem("산림 삼포스포렉스","03.02-03.03", " ");
+        adapter.addItem("청천동 철원양평해장국","03.03", "12:00-13:30");
+        adapter.addItem("왕십리",8);
+
 
     }
     //현재 onCreate는 실행된것, intent는 onNewIntent로 받아지기에 해결
@@ -70,7 +99,7 @@ public class InfectedActivity extends AppCompatActivity {
             //받은거 출력
             Log.d(TAG, "infected SMS : "+ msg);
             Toast.makeText(InfectedActivity.this, "infected] receive SMS : "+msg,Toast.LENGTH_LONG).show();
-                if(sender.equals("#CMAS#Sever")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
+                if(sender.equals("#CMAS#Severe")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
                     tv_sender.setText(sender);
                     tv_content.setText(content);
                     tv_sentAt.setText(ssentAt);
@@ -113,7 +142,7 @@ public class InfectedActivity extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                     //화면에 보여주기
 
-                    if(sender.equals("#CMAS#Sever")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
+                    if(sender.equals("#CMAS#Severe")){   //#CMAS#Severe 안드로이드 에뮬레이터 글자수 한계로 짤려서 테스트
                         tv_sender.setText(sender);
                         tv_content.setText(content);
                         tv_sentAt.setText(ssentAt);
@@ -122,7 +151,7 @@ public class InfectedActivity extends AppCompatActivity {
                     }
                     // use msgData
                     i=i+1;
-                } while (cursor.moveToNext());// && i<1 최신 몇번째까지 읽을지 선택
+                } while (cursor.moveToNext()&& i<3);// && i<1 최신 몇번째까지 읽을지 선택
             } else {
                 // empty box, no SMS
             }

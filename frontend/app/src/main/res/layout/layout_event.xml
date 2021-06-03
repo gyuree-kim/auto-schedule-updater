@@ -9,7 +9,7 @@
 
     <TextView
 
-        android:id="@+id/tv_last_sender"
+        android:id="@+id/tv_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -26,10 +26,11 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_gravity="center_vertical"
+        android:gravity="right"
         >
 
         <TextView
-            android:id="@+id/tv_last_notread"
+            android:id="@+id/tv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="03.03-03.06"
@@ -40,7 +41,7 @@
             />
 
         <TextView
-            android:id="@+id/tv_last_time"
+            android:id="@+id/tv_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="18:00-20:00"
