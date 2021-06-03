@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class MessageItem {
+public class MessageSnsItem {
 //    const message = new Schema({
 //        chatRoomId: { type: Schema.Types.ObjectId, ref: 'ChatRooms', required: true },
 //        sender: { type: String, ref: 'User', required: true },
@@ -24,11 +24,11 @@ public class MessageItem {
     private Date createdAt;
     //db에서 객체로 값을 읽어올때
     //파라미터가 비어있는 ㄴ생성자가 필요
-    public MessageItem(){
+    public MessageSnsItem(){
 
     }
 
-    public MessageItem(String chatRoomId, String sender, String content, Boolean isRead, Date createdAt) {
+    public MessageSnsItem(String chatRoomId, String sender, String content, Boolean isRead, Date createdAt) {
         this.chatRoomId = chatRoomId;
         this.sender = sender;
         this.content = content;

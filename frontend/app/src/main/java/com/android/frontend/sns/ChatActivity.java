@@ -16,7 +16,7 @@ public class ChatActivity extends AppCompatActivity {
     private EditText et_msg;
     private ListView lv;
 
-    ArrayList<MessageItem> msgItems = new ArrayList<>();    //msgresponse 클라스로 빠져야하는거 해봄
+    ArrayList<MessageSnsItem> msgItems = new ArrayList<>();    //msgresponse 클라스로 빠져야하는거 해봄
     ChatAdapter chatAdapter;
 
     @Override

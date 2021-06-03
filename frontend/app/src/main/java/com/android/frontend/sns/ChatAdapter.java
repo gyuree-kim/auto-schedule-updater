@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class ChatAdapter extends BaseAdapter{
 
-    ArrayList<MessageItem> msgs = new ArrayList<>();
+    ArrayList<MessageSnsItem> msgs = new ArrayList<>();
 
 
     @Override
@@ -37,7 +37,7 @@ public class ChatAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        MessageItem m = msgs.get(position);   //현재 보여줄 position의 데이터로 뷰 구성
+        MessageSnsItem m = msgs.get(position);   //현재 보여줄 position의 데이터로 뷰 구성
         //재활용할 뷰 convertView 사용안함???
         View itemView = null;
         String myname = "a"; //내이름 얻는 방법 찾기//////////////
@@ -76,12 +76,12 @@ public class ChatAdapter extends BaseAdapter{
         SimpleDateFormat hhmm = new SimpleDateFormat("HH:MM");
         return hhmm.format(d);
     }
-    public void addMsgItem(MessageItem m){
+    public void addMsgItem(MessageSnsItem m){
 
         msgs.add(m);
     }
     public void addMsg(String sender, String msg, String time){
-        MessageItem m = new MessageItem();
+        MessageSnsItem m = new MessageSnsItem();
         m.setSender(sender);
         m.setContent(msg);
         Date d = new Date();
