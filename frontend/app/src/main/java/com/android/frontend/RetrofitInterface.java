@@ -1,5 +1,6 @@
 package com.android.frontend;
-import com.android.frontend.sns.MessageItem;
+
+import com.android.frontend.MessageItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,13 +24,17 @@ public interface RetrofitInterface {
     @GET("/api/users/id/{id}")
     Call<UserItem> getUserById(@Path("id") String id);
 
-    @POST("/api/chatRooms/")
-    Call<Void> createRoom(@Body HashMap<String, String> map);
-
     @GET("/api/users/")
     Call<UserResponse> getAllUsers();
 
-    @GET("/api/users/chatRoomId/{chatRoomId}")
-    Call<ArrayList<MessageItem>> getMsgById(@Path("chatRoomId") String chatRoomId);
+    @POST("/api/messages/")
+    Call<Void> createMessage(@Body MessageItem msg);
+
+//    sns기능으로 안씀
+//    @POST("/api/chatRooms/")
+//    Call<Void> createRoom(@Body HashMap<String, String> map);
+//
+//    @GET("/api/users/chatRoomId/{chatRoomId}")
+//    Call<ArrayList<MessageItem>> getMsgById(@Path("chatRoomId") String chatRoomId);
 
 }

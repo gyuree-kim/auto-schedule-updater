@@ -8,15 +8,49 @@
     tools:context=".InfectedActivity">
 
     <TextView
-        android:id="@+id/textView6"
+
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/main_2"
+        android:textSize="30dp"
         android:text="확진자 데이터" />
+    <TextView
+        android:id="@+id/tv_sender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_1"
+        android:text="보낸사람" />
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="내용" />
+    <TextView
+        android:id="@+id/tv_sentAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sub_1"
+        android:text="시간" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="read existed sms"
+        android:layout_gravity="center"
+        android:onClick="BtnReadSms"
+        />
 
-    <ListView
-        android:id="@+id/lv_infected_list"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+        android:fillViewport="true">
+
+        <ListView
+            android:id="@+id/lv_infected_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            />
+    </ScrollView>
 </LinearLayout>
