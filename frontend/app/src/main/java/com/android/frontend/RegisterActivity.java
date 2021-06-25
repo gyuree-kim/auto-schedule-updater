@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btn_register;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("name", name);
 
         Call<Void> call = retrofitClient.server.executeRegister(map);
+
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

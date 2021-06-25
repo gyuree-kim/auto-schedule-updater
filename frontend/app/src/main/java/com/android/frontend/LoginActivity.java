@@ -29,6 +29,7 @@ import com.pedro.library.AutoPermissionsListener;
 
 public class LoginActivity extends AppCompatActivity implements AutoPermissionsListener{
 
+
     private EditText et_login_id, et_login_pw;
     private Button btn_login, btn_login_register;
 
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
         //필요한 위험 sms 권한 다 띄움
         AutoPermissions.Companion.loadAllPermissions(this, 101);
 
+
         //init view
         et_login_id = (EditText) findViewById(R.id.et_id);
         et_login_pw = (EditText) findViewById(R.id.et_pw);
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
             @Override
             public void onClick(View v) {
                 loginUser(et_login_id.getText().toString(), et_login_pw.getText().toString());
+
             }
         });
         //register화면으로 넘김
@@ -78,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
     private void loginUser(String id, String password) {
         //server와 연결
         RetrofitClient retrofitClient = new RetrofitClient();
+
         //전달값을 map에 저장.
         HashMap<String, String> map = new HashMap<>();
         map.put("id", id);
@@ -99,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements AutoPermissionsL
                     Intent intent = new Intent(getApplicationContext(), InfectedActivity.class);
 
                     intent.putExtra("userId", id); //id값 넘겨줌
+
                     LoginActivity.this.startActivity(intent);
 
                 } else if (response.code() == 404) {

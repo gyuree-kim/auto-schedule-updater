@@ -14,9 +14,11 @@ import android.widget.Toast;
 import com.android.frontend.sns.RoomsFragment;
 import com.android.frontend.sns.SettingFragment;
 import com.android.frontend.sns.appointments.ScheduleFragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private RoomsFragment fnotice;
     private ScheduleFragment finfected;
     private SettingFragment fsetting;
+    //server
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+    private String BASE_URL = "http://172.30.1.57:3000";
 
 
     @Override
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         initFrag();
         //fragment 세팅 초기화하기
+
 
 
     }
@@ -110,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         ft = fm.beginTransaction();
         ft.add(R.id.main_frame, fnotice);
         ft.commit();
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

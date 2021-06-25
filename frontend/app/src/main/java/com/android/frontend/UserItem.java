@@ -24,6 +24,7 @@ public class UserItem {
     private Date createdAt;
     public UserItem(){
 
+
     }
 
     public String getId() {
@@ -76,4 +77,5 @@ public class UserItem {
                 ", createdAt=" + createdAt +
                 '}';
     }
+
 }

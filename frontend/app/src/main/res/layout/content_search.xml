@@ -56,6 +56,7 @@
                     android:background="@color/main_1"
                     android:hint="검색할 ID를 입력하세요" />
 
+
                 <ImageButton
                     android:id="@+id/ibtn_search"
                     android:layout_width="wrap_content"
@@ -85,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="test채팅추가id" />
+
                 </LinearLayout>
             </ScrollView>
 
