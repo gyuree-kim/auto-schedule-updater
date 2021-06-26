@@ -7,12 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
+
     String BASE_URL = "http://3.37.80.93:3000"; // 서버 url
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    RetrofitInterface server = retrofit.create(RetrofitInterface.class);
+    public RetrofitInterface server = retrofit.create(RetrofitInterface.class);
 
 }

@@ -8,21 +8,28 @@ package com.android.frontend;
 //        createdAt: Date,
 //        updatedAt: Date
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 //infected
 //num: int
 //        });
 public class InfectedItem {
-
+    @SerializedName("id")
     private int type; //아이템 타입 구분
     //공통사항
+    @SerializedName("location")
     private String location;
+    @SerializedName("createdAt")
     private Date createdAt;
     //event
+    @SerializedName("date")
     private String date;
+    @SerializedName("time")
     private String time;
     //infected
+    @SerializedName("num")
     private int num;    //감염인원
 
     public int getType() {

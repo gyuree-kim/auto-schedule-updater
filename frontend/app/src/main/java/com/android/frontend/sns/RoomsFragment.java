@@ -99,49 +99,49 @@ public class RoomsFragment extends Fragment {
 
         //통신
         RetrofitClient retrofitClient = new RetrofitClient();
-//        Call<UserResponse> call = retrofitClient.server.getAllUsers();
-//
-//
-//        call.enqueue(new Callback<UserResponse>() {
-//            @Override
-//            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                Log.d("rooms", "응답 : " + String.valueOf(response.code()));
-//
-//                if(response.code() == 200){
-//                    Log.d("rooms", "getusers 성공 : " + String.valueOf(response.code()));
-//                    UserResponse ulist = response.body();
-//                    //ArrayList<UserItem> user_list = response.body();
-//                    for(UserItem item : ulist.items){
-//                        String result = item.getId() + "id and "+ item.getName();
-//                        userAdapter.addUserItem(item);
-//
+        Call<UserResponse> call = retrofitClient.server.getAllUsers();
+
+
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                Log.d("rooms", "응답 : " + String.valueOf(response.code()));
+
+                if(response.code() == 200){
+                    Log.d("rooms", "getusers 성공 : " + String.valueOf(response.code()));
+                    UserResponse ulist = response.body();
+                    //ArrayList<UserItem> user_list = response.body();
+                    for(UserItem item : ulist.items){
+                        String result = item.getId() + "id and "+ item.getName();
+                        userAdapter.addUserItem(item);
+
+                    }
+//                    if (user_list != null){
+//                        if (user_list.items != null && user_list.items.size()>0){
+//                            for (UserItem item : user_list.items){
+//                                userAdapter.addUserItem(item);
+//                            }
+//                        }
 //                    }
-////                    if (user_list != null){
-////                        if (user_list.items != null && user_list.items.size()>0){
-////                            for (UserItem item : user_list.items){
-////                                userAdapter.addUserItem(item);
-////                            }
-////                        }
-////                    }
-//
-//                } else if (response.code() == 400) {
-////                    Toast.makeText(MainActivity.this, "user not found",
-////                            Toast.LENGTH_LONG).show();
-//                    Log.d("rooms", "users not found" + String.valueOf(response.code()));
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<UserResponse> call, Throwable t) {
-//                Log.d("rooms","response fail"+t.toString());
-//                t.printStackTrace();
-//            }
-//        });
-        //data
+
+                } else if (response.code() == 400) {
+//                    Toast.makeText(MainActivity.this, "user not found",
+//                            Toast.LENGTH_LONG).show();
+                    Log.d("rooms", "users not found" + String.valueOf(response.code()));
+                }
+            }
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Log.d("rooms","response fail"+t.toString());
+                t.printStackTrace();
+            }
+        });
+//        data
 //        String[] last_message={"마지막 메세지","최근 메세지","누군가 메세지","그냥 메세지"};
 //        int[] last_notread={1,2,3,1};
 //        String[] last_sender={"사람","고양이","새","개"};
 //        String[] last_time={"20200521","20210521","20200111","20200330"};
-        //-----------list view 채팅방 목록
+//        //-----------list view 채팅방 목록
 
 
 
