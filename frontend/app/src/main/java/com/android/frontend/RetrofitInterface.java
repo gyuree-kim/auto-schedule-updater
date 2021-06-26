@@ -1,17 +1,14 @@
 package com.android.frontend;
 
-import com.android.frontend.MessageItem;
+import com.android.frontend.infected.InfectedResponse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface RetrofitInterface {
 

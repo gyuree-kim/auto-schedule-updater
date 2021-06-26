@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,20 +11,19 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.frontend.sns.RoomsFragment;
-import com.android.frontend.sns.SettingFragment;
+import com.android.frontend.R;
+import com.android.frontend.RetrofitClient;
+import com.android.frontend.RetrofitInterface;
+import com.android.frontend.UserItem;
 import com.android.frontend.sns.appointments.ScheduleFragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 

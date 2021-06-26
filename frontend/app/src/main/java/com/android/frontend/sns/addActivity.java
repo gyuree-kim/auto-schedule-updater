@@ -1,7 +1,8 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import android.os.Bundle;
 
+import com.android.frontend.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

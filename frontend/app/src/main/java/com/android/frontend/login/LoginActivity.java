@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,17 +12,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-import static java.sql.DriverManager.println;
-
+import com.android.frontend.infected.InfectedActivity;
+import com.android.frontend.R;
+import com.android.frontend.RetrofitClient;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 

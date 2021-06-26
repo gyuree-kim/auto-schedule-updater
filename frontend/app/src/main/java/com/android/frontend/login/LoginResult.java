@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.login;
 
 import com.google.gson.annotations.SerializedName;
 

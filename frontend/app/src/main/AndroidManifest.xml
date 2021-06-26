@@ -27,7 +27,7 @@
 
         </receiver>
 
-        <activity android:name=".InfectedActivity" />
+        <activity android:name=".infected.InfectedActivity" />
         <activity android:name=".sns.ChatActivity" />
         <activity android:name=".sns.AddroomActivity" />
 <!--        <activity-->
@@ -35,9 +35,9 @@
 <!--            android:label="@string/title_activity_add"-->
 <!--            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />-->
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".sns.MainActivity" />
+        <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".login.LoginActivity" />
         <activity
             android:name=".TitleActivity"
             android:theme="@style/Splash">

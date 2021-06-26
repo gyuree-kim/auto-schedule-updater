@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.infected;
 
 
 //const event = new Schema({

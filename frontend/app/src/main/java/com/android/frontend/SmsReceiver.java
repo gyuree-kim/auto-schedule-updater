@@ -9,6 +9,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.frontend.infected.InfectedActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

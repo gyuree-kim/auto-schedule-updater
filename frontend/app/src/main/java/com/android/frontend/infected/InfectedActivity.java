@@ -1,4 +1,4 @@
-package com.android.frontend;
+package com.android.frontend.infected;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,11 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.frontend.sns.appointments.ListViewAdapter;
+import com.android.frontend.MessageItem;
+import com.android.frontend.R;
+import com.android.frontend.RetrofitClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;

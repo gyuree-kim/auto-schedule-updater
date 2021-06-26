@@ -1,25 +1,23 @@
-package com.android.frontend;
+package com.android.frontend.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.util.Log;
 
+import com.android.frontend.R;
+import com.android.frontend.RetrofitClient;
+
 import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static java.sql.DriverManager.println;
 
 public class RegisterActivity extends AppCompatActivity {
 
