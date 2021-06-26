@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    tools:context=".sns.AddroomActivity"
+    >
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            tools:layout_editor_absoluteX="110dp"-->
+<!--            tools:layout_editor_absoluteY="129dp"-->
+<!--            android:background="@color/main_2"-->
+<!--            android:padding="10dp"-->
+<!--            >-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="채팅방 추가"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="24dp" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="ID"-->
+<!--                    android:textSize="16dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:gravity="center"-->
+<!--                    />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/et_search_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:ems="10"-->
+<!--                    android:inputType="textPersonName"-->
+<!--                    android:background="@color/main_1"-->
+<!--                    android:hint="검색할 ID를 입력하세요" />-->
+
+<!--                <ImageButton-->
+<!--                    android:id="@+id/ibtn_search"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.6"-->
+<!--                    android:background="@color/main_1"-->
+<!--                    app:srcCompat="@drawable/ic_search" />-->
+<!--            </LinearLayout>-->
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical" >-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_create_room1"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="test채팅추가bbn" />-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_create_room2"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="test채팅추가id" />-->
+<!--                </LinearLayout>-->
+<!--            </ScrollView>-->
+
+<!--        </LinearLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,17 @@
-package com.android.frontend;
+package com.android.frontend.sns;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.android.frontend.R;
 
 import java.util.ArrayList;
 
-public class RoomList extends BaseAdapter {
+public class RoomAdapter extends BaseAdapter {
     ArrayList<RoomItem> rooms = new ArrayList<>();
     @Override
     public int getCount() { //총 몇개인지
@@ -58,6 +59,9 @@ public class RoomList extends BaseAdapter {
         r.setLast_notread(last_notread);
         r.setLast_sender(last_sender);
         r.setLast_time(last_time);
+        rooms.add(r);
+    }
+    public void addRoomItem(RoomItem r){
         rooms.add(r);
     }
 }

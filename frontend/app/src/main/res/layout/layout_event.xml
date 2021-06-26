@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+
+    <TextView
+
+        android:id="@+id/tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="감염자방문장소 3문장으로 만들려고 문자를 길게 써봅ㅂ니다 뷰는 잘 나올껏인가"
+        android:textSize="18dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+
+    />
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
+        >
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="03.03-03.06"
+            android:textSize="12dp"
+            android:layout_gravity="right"
+
+
+            />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="18:00-20:00"
+            android:textSize="12dp"
+            android:layout_gravity="right"
+            />
+    </LinearLayout>
+</LinearLayout>

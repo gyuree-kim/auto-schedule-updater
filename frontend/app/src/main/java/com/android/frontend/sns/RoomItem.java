@@ -1,9 +1,25 @@
-package com.android.frontend;
+package com.android.frontend.sns;
+
+//        users: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+//        messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+//        createdAt: Date,
+//        recentMsg: { type: Schema.Types.ObjectId, ref: 'Message' }
+//        },
+//        {
+//        timestamps: true
+
+//        users: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+//        messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+//        createdAt: Date,
+//        recentMsg: { type: Schema.Types.ObjectId, ref: 'Message' }
+//        },
+//        {
+//        timestamps: true
 
 public class RoomItem {
     private int room_id; //채팅방 고유 id
     private String last_sender; //최근 보낸 사람
-    private String last_message;    //최근 보낸 메세지
+    private String last_message;    //최근 보낸 메세지,/
     private String last_time;   //최근 메세지의 시간
     private int last_notread;   //최근 안읽은 메세지
 

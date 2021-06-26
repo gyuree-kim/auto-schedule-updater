@@ -3,6 +3,8 @@
     package="com.android.frontend">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".addActivity"
-            android:label="@string/title_activity_add"
-            android:theme="@style/Theme.Frontend.NoActionBar"></activity>
+        <receiver
+            android:name=".SmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+
+        </receiver>
+
+        <activity android:name=".InfectedActivity" />
+        <activity android:name=".sns.ChatActivity" />
+        <activity android:name=".sns.AddroomActivity" />
+<!--        <activity-->
+<!--            android:name=".sns.AddroomActivity"-->
+<!--            android:label="@string/title_activity_add"-->
+<!--            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />-->
+
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />

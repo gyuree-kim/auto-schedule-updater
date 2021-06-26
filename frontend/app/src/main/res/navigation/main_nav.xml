@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/roomsFragment"
-        android:name="com.android.frontend.RoomsFragment"
+        android:name="com.android.frontend.sns.RoomsFragment"
         android:label="fragment_rooms"
         tools:layout="@layout/fragment_rooms" />
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="com.android.frontend.ScheduleFragment"
+        android:name="com.android.frontend.sns.appointments.ScheduleFragment"
         android:label="fragment_schedule"
         tools:layout="@layout/fragment_schedule" />
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.android.frontend.SettingFragment"
+        android:name="com.android.frontend.sns.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>
