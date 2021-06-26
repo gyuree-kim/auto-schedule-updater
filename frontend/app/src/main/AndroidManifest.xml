@@ -34,6 +34,7 @@
 <!--            android:name=".sns.AddroomActivity"-->
 <!--            android:label="@string/title_activity_add"-->
 <!--            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />-->
+
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
