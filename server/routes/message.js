@@ -2,9 +2,8 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 const Message = require('../models/message');
-const ChatRoom = require('../models/chatRooms');
 
-// create message 
+/// create message 
 router.post('/', function(req, res){
   try{
     const userId = req.body.userId;
@@ -35,7 +34,7 @@ router.post('/', function(req, res){
   }
 });
 
-// get all messages
+/// get all messages
 router.get('/', (req, res) => {
   try{
     async function getMessage(){
@@ -46,12 +45,12 @@ router.get('/', (req, res) => {
       else res.status(200).send(message);
     }
     getMessage();
-  }catch(e){
+  } catch(e){
     res.status(500).send(e);
   }
 })
 
-// get a message by messageId
+/// get a message by messageId
 router.get('/messageId/:messageId', (req, res) => {
   const filter = {_id: req.params.messageId};
   Message.findOne(filter, (err, result) => {
@@ -61,7 +60,7 @@ router.get('/messageId/:messageId', (req, res) => {
   })
 })
 
-// get messages by eventId  ??
+/// get messages by eventId  ??
 router.get('/eventId/:eventId', (req, res) => {
   const filter = {content: req.params.eventId};
   Event.find(filter, (err, result)=>{
@@ -74,7 +73,7 @@ router.get('/eventId/:eventId', (req, res) => {
   })
 })
 
-// remove message by id 
+/// remove message by id 
 router.delete('/:messageId', function(req, res){
   const filter = {_id: req.params.messageId };
   Message.findOne(filter, (err, message) => {

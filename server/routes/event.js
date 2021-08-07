@@ -56,6 +56,16 @@ router.get('/eventId/:_id', (req, res) => {
   })
 })
 
+// get a event by userId 
+router.get('/eventId/:userId', (req, res) => {
+  const filter = {_id: req.params.userId};
+  Event.find(filter, (err, result)=>{
+    if(err) res.status(400).send(err)
+    if(!result.length) res.status(404).json({msg: `user has no event`});
+    else return res.status(200).send(result);
+  })
+})
+
 // update event 
 router.put('/eventId/:eventId', function(req, res){
   const filter = { _id: req.params.eventId };

@@ -15,8 +15,9 @@ Table message {
 Table event{
   _id int [pk]
   messageId int [ref: - message._id]
-  date String
-  time String
+  type MessageType
+  date Date
   location String
-  color String
+  createdAt Date
+  updatedAt Date
 }
