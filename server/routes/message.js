@@ -1,40 +1,29 @@
 var express = require('express');
 var router = express.Router();
-
 const User = require('../models/user');
 const Message = require('../models/message');
-const ChatRoom = require('../models/chatRooms');
 
-// create message - ok
+/// create message 
 router.post('/', function(req, res){
   try{
-    const chatRoomId = req.body.chatRoomId;
-    const sender = req.body.sender;
+    const userId = req.body.userId;
+    const content = req.body.content;
+    const sentAt = req.body.sentAt;
+    
+    if(!content || !sentAt) res.status(400).send("both content and sentAt are required")
 
-    async function findChatRoom(){
-      const chatRoom = await ChatRoom.findOne(
-        {_id:chatRoomId}, (err)=>{
-        if(err) throw err;
-      });
-      if(!chatRoom) return res.status(404).send("chatroom not found");
-      console.log("found chatroom");
-    }
     async function findUser(){
-      const user = await ChatRoom.findOne({id:sender}, (err)=>{
+      const user = await User.findOne({id:userId}, (err)=>{
         if(err) throw err;
       });
       if(!user) return res.status(404).send("user not found");
-      console.log("found user");
     }
-    findChatRoom()
-    findUser()
+    if(userId) findUser()
 
     const message = new Message({
-      chatRoomId: chatRoomId,
-      sender: sender,
-      content: req.body.content,
-      isRead: false,
-      createdAt: new Date
+      userId: userId,
+      content: content,
+      sentAt: sentAt
     })
     message.save((err) => {
       if(err) throw err;
@@ -45,7 +34,7 @@ router.post('/', function(req, res){
   }
 });
 
-// get all messages - ok
+/// get all messages
 router.get('/', (req, res) => {
   try{
     async function getMessage(){
@@ -56,43 +45,27 @@ router.get('/', (req, res) => {
       else res.status(200).send(message);
     }
     getMessage();
-  }catch(e){
+  } catch(e){
     res.status(500).send(e);
   }
 })
 
-// get a message by messageId - ok
-router.get('/_id/:messageId', (req, res) => {
+/// get a message by messageId
+router.get('/messageId/:messageId', (req, res) => {
   const filter = {_id: req.params.messageId};
-  Message.findOne(filter, (err, result)=>{
+  Message.findOne(filter, (err, result) => {
     if(err) res.status(400).json({msg: `db error`});
     if(!result) res.status(404).json({msg: `message not found`});
-    else
-    {
-      return res.status(200).send(`success ${result}`);
-    }
+    else return res.status(200).send(`success ${result}`);
   })
 })
 
-// get messages by chatRoomId - ok
-router.get('/chatRoomId/:chatRoomId', (req, res) => {
-  const filter = {chatRoomId: req.params.chatRoomId};
-  Message.find(filter, (err, result)=>{
-    if(err) res.status(400).send(err);
-    if(!result.length) res.status(404).send("message not found");
-    else
-    {
-      return res.status(200).send(`success ${result}`);
-    }
-  })
-})
-
-// get messages with content - ok
-router.get('/content', (req, res) => {
-  const filter = {content: req.body.content};
-  Message.find(filter, (err, result)=>{
+/// get messages by eventId  ??
+router.get('/eventId/:eventId', (req, res) => {
+  const filter = {content: req.params.eventId};
+  Event.find(filter, (err, result)=>{
     if(err) res.status(400).json({msg: `db error`});
-    if(!result) res.status(404).json({msg: `message not found`});
+    if(!result) res.status(404).json({msg: `event not found`});
     else
     {
       return res.status(200).send(`success ${result}`);
@@ -100,33 +73,14 @@ router.get('/content', (req, res) => {
   })
 })
 
-// update message - ok
-router.put('/:messageId', function(req, res){
-  const filter = { _id: req.params.messageId };
-  Message.findOne(filter, function(err, message){
-    if(err) res.status(500).send(err);
-    if(!message) res.status(404).send( 'message not found' );
-
-    if(req.body.isRead) message.isRead = req.body.isRead;
-
-    message.save(function(err){
-      if(err) res.status(500).send(err);
-      else 
-      {
-        res.status(200).send(message);
-      }
-    });
-  })
-})
-
-// remove message by id - ok
+/// remove message by id 
 router.delete('/:messageId', function(req, res){
   const filter = {_id: req.params.messageId };
   Message.findOne(filter, (err, message) => {
     if(!message) res.status(404).send("msg not found");
     else
     {
-      message.remove( {}, function(err, message){
+      message.remove( filter, function(err, message){
         if(err) return res.status(400).json({msg: 'message.remove error'});
         else return res.status(200).send(message);
       })

@@ -1,34 +1,23 @@
 Table user as U {
-  id int [pk, increment] // auto-increment
-  email String [unique]
+  _id int [pk] // auto-increment
+  id String [unique]
   name String
-  created_at timestamp
+  createdAt timestamp
 }
 
 Table message {
-  id int [pk]
-  chatRoomId int [ref: - chatRoom.id]
-  sender Sring
+  _id int [pk]
+  userId String [ref: > user._id]
   content String
-  sentAt String
+  createdAt String
  }
  
- Table chatRoom{
-  id int [pk]
-  usersId array [ref: < U.id]
-  lastUpdated timestamp
-  messageList array [ref: < message.id]
- }
-
-Table appointment{
-  id int [pk]
-  chatId int [ref: - chatRoom.id]
-  date String
-  time String
+Table event{
+  _id int [pk]
+  messageId int [ref: - message._id]
+  type MessageType
+  date Date
   location String
+  createdAt Date
+  updatedAt Date
 }
-
-Table appointmentList{
-  id int [pk]
-  userId int [ref: - U.id]
-  appointment
