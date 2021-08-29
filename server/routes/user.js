@@ -167,6 +167,7 @@ router.put('/:userId', function(req, res){
     if(req.body.id) user.id = req.body.id;
     if(req.body.name) user.name = req.body.name;
     if(req.body.password) user.password = req.body.password;
+    if(req.body.color) user.color = req.body.color;
     if(req.body.createdAt) user.createdAt = req.body.createdAt;
 
     user.save(function(err){

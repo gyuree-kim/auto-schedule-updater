@@ -5,6 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+<<<<<<< HEAD
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+=======
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +18,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
 
 import com.android.frontend.appointments.ScheduleFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+<<<<<<< HEAD
+=======
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,6 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
 public class MainActivity extends AppCompatActivity {
 
 
@@ -35,16 +45,22 @@ public class MainActivity extends AppCompatActivity {
     private RoomsFragment frooms;
     private ScheduleFragment fschedule;
     private SettingFragment fsetting;
+<<<<<<< HEAD
+=======
     //server
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://172.30.1.57:3000";
 
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
+        //bar 바꿔보기a
+=======
         //main activity에서 id값 받아오기
         Intent intent = getIntent();
         String userid = intent.getStringExtra("user id");
@@ -93,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
 
         bottomNavigationView = findViewById(R.id.bottom_navi);
 

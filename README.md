@@ -42,4 +42,4 @@ npm install pm2 -g
 
 ### Backend
 - Installed packages:
-    `body-parser`, `cors`, `cryto`, `express`, `mongodb`, `mongoose`, `morgan`
+    `body-parser`, `cors`, `express`, `mongodb`, `mongoose`, `morgan`, `python-shell`

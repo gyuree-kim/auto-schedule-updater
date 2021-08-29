@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+<<<<<<< HEAD
+=======
 import android.util.Log;
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
 
 import java.util.HashMap;
 
@@ -19,8 +22,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+<<<<<<< HEAD
+=======
 import static java.sql.DriverManager.println;
 
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_register_id, et_register_name, et_register_pw;
@@ -29,7 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
     //서버
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
+<<<<<<< HEAD
+    private String BASE_URL = "http://59.16.214.224:3000";
+=======
     private String BASE_URL = "http://172.30.1.57:3000";
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,18 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("id", id);
         map.put("password", password);
 
+<<<<<<< HEAD
+        Call<Void> call = retrofitInterface.executeSignup(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(RegisterActivity.this,
+                            "Signed up successfully", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 400) {
+                    Toast.makeText(RegisterActivity.this,
+                            "Already registered", Toast.LENGTH_LONG).show();
+=======
         Call<Void> call = retrofitInterface.executeRegister(map);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -83,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,
                             "Already registered", Toast.LENGTH_LONG).show();
                     Log.d("register", String.valueOf(response.code()));
+>>>>>>> 4bd3a15f27cd8e7eaa7735909bab81ee9673d36e
                 }
             }
 
