@@ -5,15 +5,15 @@ const Message = require('../models/message');
 
 /// create message 
 router.post('/', function(req, res){
-  try{
+  try {
     const userId = req.body.userId;
     const content = req.body.content;
-    const sentAt = req.body.sentAt;
+    const createdAt = req.body.createdAt;
     
-    if(!content || !sentAt) res.status(400).send("both content and sentAt are required")
+    if(!content || !createdAt) res.status(400).send("both content and createdAt are required")
 
     async function findUser(){
-      const user = await User.findOne({id:userId}, (err)=>{
+      const user = await User.findOne({userId:userId}, (err)=>{
         if(err) throw err;
       });
       if(!user) return res.status(404).send("user not found");
@@ -23,7 +23,7 @@ router.post('/', function(req, res){
     const message = new Message({
       userId: userId,
       content: content,
-      sentAt: sentAt
+      createdAt: createdAt
     })
     message.save((err) => {
       if(err) throw err;
@@ -60,21 +60,18 @@ router.get('/messageId/:messageId', (req, res) => {
   })
 })
 
-/// get messages by eventId  ??
-router.get('/eventId/:eventId', (req, res) => {
-  const filter = {content: req.params.eventId};
-  Event.find(filter, (err, result)=>{
+/// get a message by userId
+router.get('/userId/:userId', (req, res) => {
+  const filter = {userId: req.params.userId};
+  Message.find(filter, (err, result) => {
     if(err) res.status(400).json({msg: `db error`});
-    if(!result) res.status(404).json({msg: `event not found`});
-    else
-    {
-      return res.status(200).send(`success ${result}`);
-    }
+    if(!result) res.status(404).json({msg: `message not found`});
+    else return res.status(200).send(`success ${result}`);
   })
 })
 
 /// remove message by id 
-router.delete('/:messageId', function(req, res){
+router.delete('/messageId/:messageId', function(req, res){
   const filter = {_id: req.params.messageId };
   Message.findOne(filter, (err, message) => {
     if(!message) res.status(404).send("msg not found");

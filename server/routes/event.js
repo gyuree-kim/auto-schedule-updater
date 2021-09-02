@@ -2,31 +2,38 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 const User = require('../models/user');
+const Message = require('../models/message');
 const Event = require('../models/event');
 
 // create new event
 router.post('/', (req,res) => {
-    try{
-        const date = req.body.date;
-        const time = req.body.time;
-        const location = req.body.location;
-        if(!date || !time || !location) {
-          res.send('input is not sufficient');
-          throw new Error()
-        }
+    try {
+      const messageId = req.body.messageId;
+      const type = req.body.type;
+      const date = req.body.date;
+      const time = req.body.time;
+      const location = req.body.location;
+      
+      const params = [messageId, type, date, time, location]
+      if(params.empty()) {
+        res.send('input is not sufficient');
+        throw new Error()
+      }
 
-        const event = new Event({
-            date: date,
-            time: time,
-            location: location,
-            color: "#fff",
-            createdAt: new Date,
-            updatedAt: new Date
-        })
-        event.save((err) => {
-            if(err) throw new Error()
-            else return res.status(201).send(event)
-        })
+      const event = new Event({
+        messageId: messageId,
+        type: type,
+        date: date,
+        time: time,
+        location: location,
+        createdAt: new Date,
+        updatedAt: new Date
+      })
+
+      event.save((err) => {
+          if(err) throw new Error()
+          else return res.status(201).send(event)
+      })
     } catch(e){
         res.status(500).send(e)
     }
@@ -34,14 +41,14 @@ router.post('/', (req,res) => {
 
 // get all events
 router.get('/', (req, res) => {
-  try{
+  try {
     async function getEvents(){
       const events = await Event.find({});
       if(!events.length) return res.status(404).send("event not found");
       else res.status(200).send(events);
     }
     getEvents();
-  }catch(e){
+  } catch(e) {
     res.status(500).send(e);
   }
 })
@@ -49,20 +56,31 @@ router.get('/', (req, res) => {
 // get a event by id 
 router.get('/eventId/:_id', (req, res) => {
   const filter = {_id: req.params._id};
-  Event.findOne(filter, (err, result)=>{
+  Event.findOne(filter, (err, result) => {
     if(err) res.status(400).send(err)
     if(!result) res.status(404).json({msg: `event not found`});
     else return res.status(200).send(result);
   })
 })
 
-// get a event by userId 
+// get events by userId 
 router.get('/userId/:userId', (req, res) => {
-  const filter = {id: req.params.userId};
-  Event.find(filter, (err, result)=>{
+  const filter = {userId: req.params.userId};
+  Message.find(filter, (err, result) => {
     if(err) res.status(400).send(err)
-    if(!result.length) res.status(404).json({msg: `user has no event`});
-    else return res.status(200).send(result);
+    if(!result.length) res.status(404).json({msg: `no messages with given userId`});
+    
+    var _events = []
+    result.forEach(message => {
+      const _filter = { _id: message._id }
+      Evnet.findOne(fileter, (err, event) => {
+        if(err) res.status(400).send(err)
+        if(!event) res.status(404).json({msg: `no event with messageId ${messageId}`})
+        _events.append(event)
+      })
+    });
+    
+    return res.status(200).send(_events);
   })
 })
 
