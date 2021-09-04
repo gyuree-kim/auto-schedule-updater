@@ -8,22 +8,22 @@ router.post('/', function(req, res){
   try {
     const userId = req.body.userId;
     const content = req.body.content;
-    const createdAt = req.body.createdAt;
     
-    if(!content || !createdAt) res.status(400).send("both content and createdAt are required")
+    const _data = [userId, content]
+    if(!data) res.status(400).send("invalid input")
 
-    async function findUser(){
-      const user = await User.findOne({userId:userId}, (err)=>{
+    async function findUser(id){
+      const user = await User.findOne({userId:id}, (err)=>{
         if(err) throw err;
       });
       if(!user) return res.status(404).send("user not found");
     }
-    if(userId) findUser()
+    if(userId) findUser(userId)
 
     const message = new Message({
       userId: userId,
       content: content,
-      createdAt: createdAt
+      createdA: new Date
     })
     message.save((err) => {
       if(err) throw err;
@@ -34,7 +34,7 @@ router.post('/', function(req, res){
   }
 });
 
-/// get all messages
+/// get all messages -ok
 router.get('/', (req, res) => {
   try{
     async function getMessage(){
@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
   }
 })
 
-/// get a message by messageId
+/// get a message by messageId -ok
 router.get('/messageId/:messageId', (req, res) => {
   const filter = {_id: req.params.messageId};
   Message.findOne(filter, (err, result) => {
@@ -60,7 +60,7 @@ router.get('/messageId/:messageId', (req, res) => {
   })
 })
 
-/// get a message by userId
+/// get messages by userId
 router.get('/userId/:userId', (req, res) => {
   const filter = {userId: req.params.userId};
   Message.find(filter, (err, result) => {
@@ -70,7 +70,7 @@ router.get('/userId/:userId', (req, res) => {
   })
 })
 
-/// remove message by id 
+/// remove message by id -ok
 router.delete('/messageId/:messageId', function(req, res){
   const filter = {_id: req.params.messageId };
   Message.findOne(filter, (err, message) => {
