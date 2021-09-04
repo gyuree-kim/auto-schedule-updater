@@ -3,33 +3,33 @@ var router = express.Router();
 const User = require('../models/user');
 const Message = require('../models/message');
 
-/// create message 
+/// create message -ok
 router.post('/', function(req, res){
   try {
     const userId = req.body.userId;
     const content = req.body.content;
     
     const _data = [userId, content]
-    if(!data) res.status(400).send("invalid input")
+    if(!_data) res.status(400).send("invalid input")
 
-    async function findUser(id){
-      const user = await User.findOne({userId:id}, (err)=>{
-        if(err) throw err;
-      });
+    // check if user exist
+    User.findOne({userId:userId}, (err, user) => {
+      if(err) throw err;
       if(!user) return res.status(404).send("user not found");
-    }
-    if(userId) findUser(userId)
+    });
 
+    // create message
     const message = new Message({
       userId: userId,
       content: content,
-      createdA: new Date
+      createdAt: new Date
     })
     message.save((err) => {
       if(err) throw err;
       else return res.status(201).send(message);
     })
-  } catch(e){
+  } catch(e) {
+    console.log(err)
     res.status(500).send(e);
   }
 });
@@ -60,13 +60,13 @@ router.get('/messageId/:messageId', (req, res) => {
   })
 })
 
-/// get messages by userId
+/// get messages by userId -ok
 router.get('/userId/:userId', (req, res) => {
   const filter = {userId: req.params.userId};
   Message.find(filter, (err, result) => {
     if(err) res.status(400).json({msg: `db error`});
     if(!result) res.status(404).json({msg: `message not found`});
-    else return res.status(200).send(`success ${result}`);
+    else return res.status(200).send(result);
   })
 })
 

@@ -2,14 +2,18 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 
+// get all users -ok
 router.get('/', (req, res) => {
   const filter = {}; //find all users
   User.find(filter, (err, userList)=>{
-    if(err) res.status(400).json({msg: `getAll users error`});
+    if(err) {
+      console.log(err)
+      res.status(400).json({msg: `getAll users error`})
+    }
     if(!userList) res.status(404).json({msg: `users not found`});
     else
     {
-      return res.status(200).json({userList});
+      return res.status(200).send(userList);
     }
   })
 })
@@ -55,33 +59,37 @@ router.get('/', (req, res) => {
 //   });
 // });
 
+// register -ok
 router.post('/register', (req, res) => {
   const newUser = new User({
     userId: req.body.userId,
     username: req.body.username,
     password: req.body.password,
     createdAt: new Date
-  });
+  })
+
   const query = { userId: newUser.userId }
   User.findOne(query, (err, result) => {
-      if(result) 
-      {
+      if(err) { 
+        console.log(err)
+        res.status(400).json("fail to register")
+      }
+      if(result) {
         res.send(`already exist ${result}`);
         res.status(400);
       } 
-      else 
-      {
-        newUser.save((err) => {
-          if(err){ throw err; } 
-          else {
-            res.send(`success ${newUser}`);
-            res.status(200);
-          }
-        })
-      }
+  })
+
+  newUser.save((err) => {
+    if(err) { 
+      console.log(err)
+      res.status(400).json("fail to save user") 
+    }
+    else { return res.status(201).send(newUser) }
   })
 })
 
+// login -ok
 router.post('/login', (req, res) => {
   const query1 = { userId: req.body.userId }
   const query2 = {
@@ -117,7 +125,7 @@ router.post('/login', (req, res) => {
   })
 })
 
-// search user by id
+// search user by userId -ok
 router.get('/userId/:userId', (req, res) => {
   User.findOne({userId: req.params.userId}, (err, user) => {
     if(err) { res.status(500).json({error: `db failure`}); }
@@ -130,7 +138,7 @@ router.get('/userId/:userId', (req, res) => {
   })
 })
 
-// search user by _id
+// search user by _id -ok
 router.get('/_id/:_id', (req, res) => {
   User.findOne({_id: req.params._id}, (err, user) => {
     if(err) res.status(500).json({error: `db failure`});
@@ -143,7 +151,7 @@ router.get('/_id/:_id', (req, res) => {
   })
 })
 
-// search user by name
+// search user by username -ok
 router.get('/username/:username', (req, res) => {
   User.findOne({name: req.params.name}, (err, user) => {
     if(err) res.status(500).json({error: `db failure`});
