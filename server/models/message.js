@@ -4,9 +4,9 @@ const User = require('./user');
 const Event = require('./event');
 
 const message = new Schema({
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    content: { type: String, required: true},
-    sentAt: { type: Date, required: true }
+    userId: { type: String, ref: 'User' },
+    content: { type: String, required: true },
+    createdAt: { type: Date, required: true }
 });
 
 module.exports = mongoose.model('message', message);

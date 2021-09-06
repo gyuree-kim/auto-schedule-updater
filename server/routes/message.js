@@ -3,38 +3,38 @@ var router = express.Router();
 const User = require('../models/user');
 const Message = require('../models/message');
 
-/// create message 
+/// create message -ok
 router.post('/', function(req, res){
-  try{
+  try {
     const userId = req.body.userId;
     const content = req.body.content;
-    const sentAt = req.body.sentAt;
     
-    if(!content || !sentAt) res.status(400).send("both content and sentAt are required")
+    const _data = [userId, content]
+    if(!_data) res.status(400).send("invalid input")
 
-    async function findUser(){
-      const user = await User.findOne({id:userId}, (err)=>{
-        if(err) throw err;
-      });
+    // check if user exist
+    User.findOne({userId:userId}, (err, user) => {
+      if(err) throw err;
       if(!user) return res.status(404).send("user not found");
-    }
-    if(userId) findUser()
+    });
 
+    // create message
     const message = new Message({
       userId: userId,
       content: content,
-      sentAt: sentAt
+      createdAt: new Date
     })
     message.save((err) => {
       if(err) throw err;
       else return res.status(201).send(message);
     })
-  } catch(e){
+  } catch(e) {
+    console.log(err)
     res.status(500).send(e);
   }
 });
 
-/// get all messages
+/// get all messages -ok
 router.get('/', (req, res) => {
   try{
     async function getMessage(){
@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
   }
 })
 
-/// get a message by messageId
+/// get a message by messageId -ok
 router.get('/messageId/:messageId', (req, res) => {
   const filter = {_id: req.params.messageId};
   Message.findOne(filter, (err, result) => {
@@ -60,21 +60,18 @@ router.get('/messageId/:messageId', (req, res) => {
   })
 })
 
-/// get messages by eventId  ??
-router.get('/eventId/:eventId', (req, res) => {
-  const filter = {content: req.params.eventId};
-  Event.find(filter, (err, result)=>{
+/// get messages by userId -ok
+router.get('/userId/:userId', (req, res) => {
+  const filter = {userId: req.params.userId};
+  Message.find(filter, (err, result) => {
     if(err) res.status(400).json({msg: `db error`});
-    if(!result) res.status(404).json({msg: `event not found`});
-    else
-    {
-      return res.status(200).send(`success ${result}`);
-    }
+    if(!result) res.status(404).json({msg: `message not found`});
+    else return res.status(200).send(result);
   })
 })
 
-/// remove message by id 
-router.delete('/:messageId', function(req, res){
+/// remove message by id -ok
+router.delete('/messageId/:messageId', function(req, res){
   const filter = {_id: req.params.messageId };
   Message.findOne(filter, (err, message) => {
     if(!message) res.status(404).send("msg not found");

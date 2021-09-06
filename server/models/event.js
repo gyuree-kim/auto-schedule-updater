@@ -10,6 +10,7 @@ const EventType = {
 const event = new Schema({    
     messageId: { type: Schema.Types.ObjectId, ref: 'Message' },
     type: String,
+    count: Number,
     date: String,
     time: String,
     location: String,
