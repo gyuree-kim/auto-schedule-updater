@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Message = require('../models/message');
 
 /// create message -ok
-router.post('/', function(req, res){
+router.post('/', function(req, res) {
   try {
     const userId = req.body.userId;
     const content = req.body.content;
@@ -36,13 +36,14 @@ router.post('/', function(req, res){
 
 /// get all messages -ok
 router.get('/', (req, res) => {
-  try{
+  try {
     async function getMessage(){
       const message = await Message.find({});
-      if(!message.length){
+      if(!message.length) {
         return res.status(404).send("message not found");
+      } else {
+        res.status(200).send(message);
       }
-      else res.status(200).send(message);
     }
     getMessage();
   } catch(e){

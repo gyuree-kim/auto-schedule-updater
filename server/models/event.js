@@ -2,20 +2,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Message = require('./message');
 
-const EventType = {
-    infectedEvent: "infectedEvent",
-    infectedCount: "infectedCount"
-}
-
 const event = new Schema({    
-    messageId: { type: Schema.Types.ObjectId, ref: 'Message' },
-    type: String,
-    count: Number,
-    date: String,
-    time: String,
-    location: String,
-    createdAt: Date,
-    updatedAt: Date
+    messageId: { type: String, ref: 'Message' },
+    type: { type: String },
+    count: { type: Number, default: null },
+    date: { type: String, default: null},
+    time: { type: String, default: null },
+    location: { type: String },
+    createdAt: { type: Date },
+    updatedAt: { type: Date }
 });
+
+// 사용안하는 모델
+const InfectedCountData = new Schema({
+    count: Number
+})
+const InfectedEventData = new Schema({
+    date: String,
+    time: String
+})
 
 module.exports = mongoose.model('event', event);
