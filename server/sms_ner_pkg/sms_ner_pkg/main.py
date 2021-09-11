@@ -1,0 +1,1 @@
+# 메세지 받아와서 type, date, time, location 내뱉기
