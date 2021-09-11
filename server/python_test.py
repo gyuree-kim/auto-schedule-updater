@@ -1,10 +1,9 @@
 import sys
 
 def print_value():
-    print("value")
+    print("function test")
 
-print_value()
-print("hi")
+print("print test")
 
-# if __name___ == "__main__":
-#     print_value()
+if __name__ == "__main__":
+    print_value()
