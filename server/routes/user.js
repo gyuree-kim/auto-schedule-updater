@@ -159,7 +159,7 @@ router.get('/username/:username', (req, res) => {
     else
     {
       console.log('user findOne by username 성공');
-      return res.status(200).json(user);
+      return res.status(200).send(user);
     }
   })
 })
@@ -181,7 +181,7 @@ router.put('/:userId', function(req, res){
       else 
       {
         res.json({message: 'user update 성공'});
-        res.status(200).json(user);
+        res.status(200).send(user);
       }
     });
   })
