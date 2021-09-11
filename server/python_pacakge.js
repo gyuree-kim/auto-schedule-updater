@@ -1,34 +1,19 @@
-const { PythonShell } = require('python-shell')
 
-var result = []
-function run_python_script(message) {
-    // 파이썬 쉘 실행
-    let options = {
-        mode: 'text',
-        pythonPath: 'python',
-        pythonOptions: ['-u'], // get print results in real-time
-        args: [message]
-    };
-    // filepath = "../../korean-nlp-package/sms_ner_pkg/main.py"
-    var filepath = './python_test.py'
-    let pyshell = new PythonShell(filepath, options)
+// single pyhon file test
+const spawn = require('child_process').spawn; 
+const result = spawn('python', ['python_test.py']); 
+result.stdout.on('data', function(data) { 
+    console.log(data.toString()); 
+}); 
+result.stderr.on('data', function(data) { 
+    console.log(data.toString()); 
+});
 
-    // // 파이썬 스크립트에 데이터 전달
-    // pyshell.send('hello').end(function(err){
-    //     if (err) throw err;
-    // })
-
-    // 파이썬 스크립트로부터 출력(print)된 결과값 받기
-    pyshell.on('data', (data) => { 
-        console.log(data)
-        return data
-    })
-
-    // 파이썬 스크립트 프로세스 종료
-    pyshell.end((err) => {
-        if (err) throw err;
-        console.log('finished');    
-    });    
-}
-
-run_python_script('메세지 샘플')
+// type_detector.py test
+const type_detector_result = spawn('python', ['sms_ner_pkg/sms_ner_pkg/type_detector.py', '신규 확진자 1명 발생']); 
+type_detector_result.stdout.on('data', function(result) { 
+    console.log(result.toString()); 
+})
+type_detector_result.stderr.on('data', function(err) { 
+    console.log(err.toString()); 
+});

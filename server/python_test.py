@@ -1,6 +1,9 @@
 import sys
 
-# sys.stdout.write(sys.stdin.read())
+def print_value():
+    print("function test")
 
-# print("i am here")
-print(sys.argv[0])
+print("print test")
+
+if __name__ == "__main__":
+    print_value()
