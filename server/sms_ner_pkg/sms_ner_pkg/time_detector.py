@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 
 class TimeDetector():
@@ -49,7 +50,7 @@ class TimeDetector():
         # 첫번째 숫자 이전의 글자들 삭제
         for character in _word:
             if self.hasNumbers(character):
-                word = slice_list_from_targetWord(character, word)
+                word = slice_list_from_targetWord(character, _word)
                 break
         return word
 

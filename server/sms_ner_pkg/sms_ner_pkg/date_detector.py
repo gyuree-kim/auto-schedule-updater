@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 
 class DateDetector():
@@ -49,6 +50,7 @@ class DateDetector():
 
     # 각 문장에 포함된 날짜와 관련된 단어를 dates에 추가
     def date_detector(self, message):
+        print(message.split(" ")[0].decode('cp949').encode('utf-8'))
         words = message.split()
         self.words = words
         for word in words:
@@ -83,3 +85,7 @@ class DateDetector():
                         self.addDate(_word.split('에')[0]) #조사 삭제
 
         return self.getDates()
+
+if __name__ == '__main__':
+    dateDetector = DateDetector()
+    print(dateDetector.date_detector("1월 3일"))

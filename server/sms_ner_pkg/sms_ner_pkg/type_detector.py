@@ -14,7 +14,6 @@ def type_detector(message):
     elif "방문자" in message:
         messageType = "event"
 
-    print(messageType, infectedCount)
     return messageType, int(infectedCount)
 
 if __name__ == '__main__':
