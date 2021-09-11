@@ -1,34 +1,12 @@
-const { PythonShell } = require('python-shell')
 
-var result = []
-function run_python_script(message) {
-    // 파이썬 쉘 실행
-    let options = {
-        mode: 'text',
-        pythonPath: 'python',
-        pythonOptions: ['-u'], // get print results in real-time
-        args: [message]
-    };
-    // filepath = "../../korean-nlp-package/sms_ner_pkg/main.py"
-    var filepath = './python_test.py'
-    let pyshell = new PythonShell(filepath, options)
+// 1. child-process모듈의 spawn 취득 
+const spawn = require('child_process').spawn; 
+// 2. spawn을 통해 "python 파이썬파일.py" 명령어 실행 
+const result = spawn('python', ['python_test.py']); 
+// 3. stdout의 'data'이벤트리스너로 실행결과를 받는다. 
+result.stdout.on('data', function(data) { console.log(data.toString()); }); 
+// 4. 에러 발생 시, stderr의 'data'이벤트리스너로 실행결과를 받는다. 
+result.stderr.on('data', function(data) { console.log(data.toString()); });
 
-    // // 파이썬 스크립트에 데이터 전달
-    // pyshell.send('hello').end(function(err){
-    //     if (err) throw err;
-    // })
-
-    // 파이썬 스크립트로부터 출력(print)된 결과값 받기
-    pyshell.on('data', (data) => { 
-        console.log(data)
-        return data
-    })
-
-    // 파이썬 스크립트 프로세스 종료
-    pyshell.end((err) => {
-        if (err) throw err;
-        console.log('finished');    
-    });    
-}
-
-run_python_script('메세지 샘플')
+// const result_01 = spawn('python', ['python_test.py'], ); 
+// result_01.stdout.on('data', (result)=>{ console.log(result.toString()); })
