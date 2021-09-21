@@ -134,7 +134,7 @@ class DateDetector():
                     else: date = word 
                     break
 
-        return date
+        return str(date)
 
 if __name__ == '__main__':
     dateDetector = DateDetector()
