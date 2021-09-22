@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/user');
 const Message = require('../models/message');
+const eventRouter = require('./event');
+var pythonPackage = require('../python_pacakge')
+
+const packageResult = pythonPackage.run_main()
 
 /// create message -ok
 router.post('/', function(req, res) {
@@ -28,6 +32,32 @@ router.post('/', function(req, res) {
       if(err) throw err;
       else return res.status(201).send(message);
     })
+
+    // 파이썬 패키지 결과
+    console.log(packageResult)
+    // const type = packageResult.filter(val => val[0] == 'type')[0][1]
+    // const count = packageResult.filter(val => val[0] == 'count')[0][1]
+    // const date = packageResult.filter(val => val[0] == 'date')[0][1]
+    // const time = packageResult.filter(val => val[0] == 'time')[0][1]
+    // console.log([type, count, date, time])
+
+    // eventRouter.post()
+    // 이벤트 저장
+    // const event = new Event({
+    //   messageId: message._id,
+    //   type: type,
+    //   count: count,
+    //   date: date,
+    //   time: time,
+    //   location: '',
+    //   createdAt: new Date,
+    //   updatedAt: new Date
+    // })
+    // event.save((err) => {
+    //     if(err) throw new Error()
+    //     else return res.status(201).send(event)
+    // })
+
   } catch(e) {
     console.log(err)
     res.status(500).send(e);
