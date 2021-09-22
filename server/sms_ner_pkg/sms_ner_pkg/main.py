@@ -15,11 +15,18 @@ def get_package_result(message):
 
     # date
     dateDetector = DateDetector()
-    package_result["date"] = dateDetector.date_detector(message)
+    # package_result["date"] = dateDetector.date_detector(message)
+    date = dateDetector.disaster_message_date_detector(message)
+    print(date)
+    package_result["date"] = date
 
     # time
     timeDetector = TimeDetector()
-    package_result["times"] = timeDetector.time_detector(message)
+    # time = timeDetector.time_detector(message)
+    times = timeDetector.time_detector(message)
+    time = timeDetector.disaster_message_time_detector(times, message)
+    print(time)
+    package_result["times"] = time
 
     # location
     # package_result["location"] = location_detector(message)
