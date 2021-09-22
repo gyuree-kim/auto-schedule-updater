@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 
 class TimeDetector():
@@ -49,7 +50,7 @@ class TimeDetector():
         # 첫번째 숫자 이전의 글자들 삭제
         for character in _word:
             if self.hasNumbers(character):
-                word = slice_list_from_targetWord(character, word)
+                word = slice_list_from_targetWord(character, _word)
                 break
         return word
 
@@ -89,8 +90,8 @@ class TimeDetector():
                 if targetWord in word:
                     idx = words.index(word)
                     if self.isValid(word,idx):
-                        _word = self.deleteSpecialCharacters(word)
-                        _word = self.getOnlyTimeWord(_word)
+                        # _word = self.deleteSpecialCharacters(word)
+                        _word = self.getOnlyTimeWord(word)
                         self.addTime(_word)
                         done = True
             if done: continue
@@ -98,7 +99,43 @@ class TimeDetector():
             #timeWords 단어 검사
             for timeWord in self.timeWords:
                 if timeWord in word:
-                    _word = self.deleteSpecialCharacters(word)
-                    _word = self.getOnlyTimeWord(_word)
+                    # _word = self.deleteSpecialCharacters(word)
+                    _word = self.getOnlyTimeWord(word)
                     self.addTime(_word)
+
         return self.times
+
+    def disaster_message_time_detector(self, times, message):
+        time = ''
+
+        # 불필요한 데이터 삭제
+        _times = ''
+        for _time in times:
+            if _times: _times += ' '
+            _times += _time
+        _times = _times.replace('에서', '')
+        _times = _times.replace('까지', '')
+        _times = _times.replace('(', '')
+        _times = _times.replace(')', '')
+        # print(_times)
+
+        # 첫번째 데이터가 구간인 경우 해당 데이터만 추출
+        split_times = _times.split(' ')
+        if '~' in split_times[0]: return split_times[0]
+
+        # 첫번째 데이터가 정규표현식 형태의 시간일 경우 해당 데이터만 추출
+        if self.isTimeFormat(split_times[0].split('-')[0]):
+            return split_times[0]
+
+        return time
+
+if __name__ == '__main__':
+    timeDetector = TimeDetector()
+    message = '[서산시청] 5.27.목 19시~21시까지 서산중앙병원 장례식장 별실 방문자는 6월 1일까지 보건소 선별진료소(09~18시까지)에서 검사 바랍니다.'		
+    message = '[서산시청] 5월 27일(목) 19시~21시까지 서산중앙병원 장례식장 별실 방문자는 6월 1일까지 보건소 선별진료소(09~18시까지)에서 검사 바랍니다.'		
+    message = '[서산시청] 5.27.목 19:30 서산중앙병원 장례식장 별실 방문자는 6월 1일까지 보건소 선별진료소(09~18시까지)에서 검사 바랍니다.'		
+    message = '[서산시청] 5.27.목 19:30~20:30 서산중앙병원 장례식장 별실 방문자는 6월 1일까지 보건소 선별진료소(09~18시까지)에서 검사 바랍니다.'		
+    times = timeDetector.time_detector(message)
+    # print(times)
+    disaster_times = timeDetector.disaster_message_time_detector(times, message)
+    print(disaster_times)

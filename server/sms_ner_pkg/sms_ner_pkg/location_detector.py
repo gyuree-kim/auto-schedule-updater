@@ -44,6 +44,7 @@ def loc_detector(message):
     print("정확도 : ", accuracy)
     return _location
     # return city_loc
+    
 def _get_store_location(locations):
     store_list = [] # 찾은 store 간판명 리스트
     store_df = store_loader()   # store 데이터 로드
